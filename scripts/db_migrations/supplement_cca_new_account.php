@@ -21,12 +21,35 @@ include_once("../includes/mysql.php");
 
 
 // add CCA acceptance during account creation from 2009-04-01 see https://bugs.cacert.org/view.php?id=708
-$query="select * from `users` where `created`>='2009-04-01' order by `created`";
+	$query="SELECT *
+		FROM `users`
+		WHERE `created` >= '2009-04-01' AND `verified` =1 AND `deleted` =0
+		AND NOT `users`.`id` IN
+			(SELECT `user_agreements`.`memid`
+				FROM `user_agreements`
+				WHERE `user_agreements`.`memid` = `users`.`id`
+				AND `user_agreements`.`document` = 'CCA')";
+
+$fp=fopen('cca_supplement_'.date('Y-m-d-His').'.log', 'w+');
 $res = mysql_query($query);
+$icount=0;
+
 while($row = mysql_fetch_assoc($res)){
 	$query="insert into `user_agreements` set `memid`=".$row['id'].", `secmemid`=0
 		,`document`='CCA',`date`='".$row['created']."', `active`=1,`method`='account creation',`comment`=''" ;
 	$res = mysql_query($query);
+	if (1==$res) {
+		fprintf($fp,'Account id %s with primary email address %s and creation date %s was succesfully inserted into user_agreements.',$row['id'],$row['email'],$row['created']);
+		$icount+=1;
+	}else{
+		fprintf($fp,'There is a problem with account id %s with primary email address %s and creation date %s.',$row['id'],$row['email'],$row['created']);
+		die(sprintf($fp,'There is a problem with account id %s with primary email address %s and creation date %s.',$row['id'],$row['email'],$row['created']));
+	}
 }
 
+fprintf($fp,'%s accounts were succesfully inserted into user_agreements.',$icount);
+fclose($fp);
+
+echo(sprintf($fp,'%s accounts were succesfully inserted into user_agreements.',$icount));
 ?>
+
