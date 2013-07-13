@@ -114,7 +114,7 @@ if($_SESSION['profile']['points'] >= 50)
  </tr>
    <tr>
     <td class="DataTD">
-	<input type="checkbox" name="CCA""></td>
+	<input type="checkbox" name="CCA"></td>
     <td class="DataTD" align="left">
     <strong><?=sprintf(_("I accept the CAcert Community Agreement (%s)."),"<a href='/policy/CAcertCommunityAgreement.html'>CCA</a>")?></strong></br>
 	<?=_("Please Note: You need to accept the CCA to proceed.")?>
