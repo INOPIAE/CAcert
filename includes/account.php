@@ -194,7 +194,7 @@
 
 	if($process != "" && $oldid == 3)
 	{
-		if(!(array_key_exists('CCA',$_REQUEST)))
+		if(!array_key_exists('CCA',$_REQUEST))
 		{
 			showheader(_("My CAcert.org Account!"));
 			echo _("You did not accept the CAcert Community Agreement (CCA), hit the back button and try again.");
@@ -672,7 +672,7 @@
 
 	if($process != "" && $oldid == 10)
 	{
-		if(!(array_key_exists('CCA',$_REQUEST)))
+		if(!array_key_exists('CCA',$_REQUEST))
 		{
 			showheader(_("My CAcert.org Account!"));
 			echo _("You did not accept the CAcert Community Agreement (CCA), hit the back button and try again.");
