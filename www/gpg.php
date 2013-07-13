@@ -83,7 +83,7 @@ function verifyEmail($email)
 	$state=0;
 	if($oldid == "0" && $CSR != "")
 	{
-		if(!(array_key_exists('CCA',$_REQUEST)))
+		if(!array_key_exists('CCA',$_REQUEST))
 		{
 			showheader(_("My CAcert.org Account!"));
 			echo _("You did not accept the CAcert Community Agreement (CCA), hit the back button and try again.");
