@@ -17,6 +17,7 @@
 */ ?>
 <?
 	require_once("../includes/loggedin.php");
+	require_once('../includes/notary.inc.php');
 
         $id = 0; if(array_key_exists('id',$_REQUEST)) $id=intval($_REQUEST['id']);
 	$oldid = $_REQUEST['oldid'] = array_key_exists('oldid',$_REQUEST) ? intval($_REQUEST['oldid']) : 0;
@@ -52,7 +53,7 @@ if(0)
   {
     showheader(_("Welcome to CAcert.org"));
     echo "The OpenPGP signing system is currently shutdown due to a maintenance. We hope to get it fixed within the next few hours. We are very sorry for the inconvenience.";
-  
+
     exit(0);
   }
 }
@@ -82,6 +83,14 @@ function verifyEmail($email)
 	$state=0;
 	if($oldid == "0" && $CSR != "")
 	{
+		if(!(array_key_exists('CCA',$_REQUEST)))
+		{
+			showheader(_("My CAcert.org Account!"));
+			echo _("You did not accept the CAcert Community Agreement (CCA), hit the back button and try again.");
+			showfooter();
+			exit;
+		}
+
 		$debugkey = $gpgkey = clean_gpgcsr($CSR);
 
 		$tnam = tempnam('/tmp/', '__gpg');
@@ -143,7 +152,7 @@ function verifyEmail($email)
 			$uidformatwrong=0;
 
 			if(sizeof($bits)<10) $uidformatwrong=1;
-			
+
 			if(preg_match("/\@.*\@/",$bits[9]))
 			{
 				showheader(_("Welcome to CAcert.org"));
@@ -275,6 +284,8 @@ function verifyEmail($email)
 
 	if($oldid == "0" && $CSR != "")
 	{
+		write_user_agreement(intval($_SESSION['profile']['id']), "CCA", "certificate creation", "", 1);
+
 		$query = "insert into `gpg` set `memid`='".intval($_SESSION['profile']['id'])."',
 						`email`='".mysql_real_escape_string($lastvalidemail)."',
 						`level`='1',
@@ -342,7 +353,7 @@ function verifyEmail($email)
 				{
 					//echo "Not found!\n";
 				}
-	
+
 				$emailok=verifyEmail($mail);
 
 				$uidid=$bits[7];
@@ -396,14 +407,14 @@ function verifyEmail($email)
 			1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
 			2 => array("pipe", "w") // stderr is a file to write to
 		);
- 
-		$stderr = fopen('php://stderr', 'w'); 
+
+		$stderr = fopen('php://stderr', 'w');
 
 
 		//echo "Keyid: $keyid\n";
 
 		$process = proc_open("/usr/bin/gpg --homedir $cwd --no-tty --command-fd 0 --status-fd 1 --logger-fd 2 --edit-key $keyid", $descriptorspec, $pipes);
- 
+
 		//echo "Process: $process\n";
 		//fputs($stderr,"Process: $process\n");
 
@@ -413,7 +424,7 @@ function verifyEmail($email)
 		// 0 => writeable handle connected to child stdin
 		// 1 => readable handle connected to child stdout
 		// Any error output will be appended to /tmp/error-output.txt
-			while (!feof($pipes[1])) 
+			while (!feof($pipes[1]))
 			{
 				$buffer = fgets($pipes[1], 4096);
 				//echo $buffer;
@@ -465,14 +476,14 @@ function verifyEmail($email)
 			}
 			//echo "Fertig\n";
 			fclose($pipes[0]);
- 
+
 			//echo stream_get_contents($pipes[1]);
 			fclose($pipes[1]);
- 
+
 			// It is important that you close any pipes before calling
 			// proc_close in order to avoid a deadlock
 			$return_value = proc_close($process);
- 
+
 			//echo "command returned $return_value\n";
 		}
 		else
