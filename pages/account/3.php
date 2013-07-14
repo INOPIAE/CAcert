@@ -120,7 +120,7 @@ if($_SESSION['profile']['points'] >= 50)
     </td>
   </tr>
   <tr>
-    <td class="DataTD" colspan="2"><input type="submit" name="process" value="<?=_("Next")?>"></td>
+    <td class="DataTD" colspan="2"><input type="submit" name="process" value="<?=_("Next")?>"/></td>
   </tr>
 </table>
 <input type="hidden" name="oldid" value="<?=$id?>">
