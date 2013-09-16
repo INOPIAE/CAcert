@@ -35,7 +35,7 @@ $mname = $row['mname'];
 $lname = $row['lname'];
 $suffix = $row['suffix'];
 $fullname = $fname." ".$mname." ".$lname." ".$suffix;
-$dob = date_format($row['dob'], 'Y-m-d');
+$dob = date_format(new DateTime($row['dob']), 'Y-m-d');
 $userid = $row['id'];
 
 //List TTP Assurances and TotalPoints
