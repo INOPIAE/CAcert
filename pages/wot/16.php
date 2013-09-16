@@ -58,82 +58,82 @@ $ttp_assurances_count=$num_rows = mysql_num_rows($res);
 
 //Form
 ?>
-
-<table>
-	<tr>
-		<td class="title"><?=sprintf(_('Total assurance points for %s'),$fullname)?></td>
-	</tr>
-	<tr>
-		<td><?=$points?></td>
-	</tr>
-</table>
-
-<form action="https://pdf.cacert.eu/cacertpdf.php" method="get">
+<div class=".blockcenter">
 	<table>
 		<tr>
-			<td colspan="2" class="title"><?=_('TTP CAP form creation')?></td>
+			<td class="title"><?=sprintf(_('Total assurance points for %s'),$fullname)?></td>
 		</tr>
 		<tr>
-			<td colspan="2" class="title"><?=_('User information')?></td>
-		</tr>
-		<tr>
-			<td><?=_('Fullname')?><input type="hidden" name="fullname" value="<?=$fullname.$testserver?>"/></td>
-			<td><?=$fullname?></td>
-		</tr>
-		<tr>
-			<td><?=_('Date of Birth')?><input type="hidden" name="dob" value="<?=$dob.$testserver?>"/></td>
-			<td><?=$dob?></td>
-		</tr>
-		<tr>
-			<td><?=_('Email')?><input type="hidden" name="email" value="<?=$fullname.$testserver?>"/></td>
-			<td><?=$email?></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="title"><?=_('TTP Admin postal address')?></td>
-		</tr>
-		<tr>
-			<td><?=_('Line').' 1'?></td>
-			<td><input type="text" name="adress" /></td>
-		</tr>
-		<tr>
-			<td><?=_('Line').' 2'?></td>
-			<td><input type="text" name="adress1" /></td>
-		</tr>
-		<tr>
-			<td><?=_('Line').' 3'?></td>
-			<td><input type="text" name="adress2" /></td>
-		</tr>
-		<tr>
-			<td><?=_('Line').' 4'?></td>
-			<td><input type="text" name="adress3" /></td>
-		</tr>
-		<tr>
-			<td><?=_('Line').' 5'?></td>
-			<td><input type="text" name="adress4" /></td>
-		</tr>
-		<tr>
-			<td><?=_('Country where the TTP will be visited')?></td>
-			<td>
-			<?
-				$ttpcountries=get_array_from_ini('../config/ttp.ini');
-				echo create_selectbox_HTML('country',$ttpcountries, '',TRUE);
-			?>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="title">
-			<?
-			if ($points>=100 || $ttp_assurances_count>=2) {
-				_('No TTP assurance allowed');
-			}else{
-				?><input type="submit" value="<?=_('Create TTP CAP pdf file')?>"/><?
-			}?>
-			</td>
+			<td><?=$points?></td>
 		</tr>
 	</table>
-	<input type="hidden" name="lang" value="en"/>
-</form>
 
+	<form action="https://pdf.cacert.eu/cacertpdf.php" method="get">
+		<table>
+			<tr>
+				<td colspan="2" class="title"><?= _('TTP CAP form creation')?></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="title"><?= _('User information')?></td>
+			</tr>
+			<tr>
+				<td><?=_('Fullname')?><input type="hidden" name="fullname" value="<?=$fullname.$testserver?>"/></td>
+				<td><?=$fullname?></td>
+			</tr>
+			<tr>
+				<td><?=_('Date of Birth')?><input type="hidden" name="dob" value="<?=$dob.$testserver?>"/></td>
+				<td><?=$dob?></td>
+			</tr>
+			<tr>
+				<td><?=_('Email')?><input type="hidden" name="email" value="<?=$fullname.$testserver?>"/></td>
+				<td><?=$email?></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="title"><?=_('TTP Admin postal address')?></td>
+			</tr>
+			<tr>
+				<td><?=_('Line').' 1'?></td>
+				<td><input type="text" name="adress" /></td>
+			</tr>
+			<tr>
+				<td><?=_('Line').' 2'?></td>
+				<td><input type="text" name="adress1" /></td>
+			</tr>
+			<tr>
+				<td><?=_('Line').' 3'?></td>
+				<td><input type="text" name="adress2" /></td>
+			</tr>
+			<tr>
+				<td><?=_('Line').' 4'?></td>
+				<td><input type="text" name="adress3" /></td>
+			</tr>
+			<tr>
+				<td><?=_('Line').' 5'?></td>
+				<td><input type="text" name="adress4" /></td>
+			</tr>
+			<tr>
+				<td><?=_('Country where the TTP will be visited')?></td>
+				<td>
+				<?
+					$ttpcountries=get_array_from_ini('../config/ttp.ini');
+					echo create_selectbox_HTML('country',$ttpcountries, '',TRUE);
+				?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="title">
+				<?
+				if ($points>=100 || $ttp_assurances_count>=2) {
+					_('No TTP assurance allowed');
+				}else{
+					?><input type="submit" value="<?=_('Create TTP CAP pdf file')?>"/><?
+				}?>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="lang" value="en"/>
+	</form>
+</div>
 
 <a href="wot.php?id=6><?=_("Back")?></a>
 
