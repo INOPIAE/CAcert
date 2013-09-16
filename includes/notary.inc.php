@@ -1150,7 +1150,6 @@
 		}
 		foreach ($options as $key => $avalue) {
 			$return_str.='<option';
-			echo "###$key::$selected:$avalue###";
 			if ($value) {
 				$return_str.=' value="'.$avalue.'"';
 			}
