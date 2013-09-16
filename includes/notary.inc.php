@@ -1143,9 +1143,9 @@
 	 *         entry is preselected in the dropdownbox
 	 * @return
 	 */
-	function create_selectbox_HTML($name, array $options, $firstline = "", $value='', $selected = ""){
+	function create_selectbox_HTML($name, array $options, $firstline = '', $value='', $selected = ''){
 		$return_str='<select name="' . $name . '">';
-		if (!$firstline) {
+		if (''== $firstline) {
 			$return_str .= '<option>' . $firstline .'</option>';
 		}
 		foreach ($options as $key => $avalue) {
