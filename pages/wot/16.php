@@ -35,7 +35,7 @@ $mname = $row['mname'];
 $lname = $row['lname'];
 $suffix = $row['suffix'];
 $fullname = $fname." ".$mname." ".$lname." ".$suffix;
-echo $fullname . ' '.$row['dob'] . ' ' . $row['id'];
+echo 'testausgabe:::'.$fullname . '-'.$row['dob'] . '-' . $row['id'];
 $dob = date_format(new DateTime($row['dob']), 'Y-m-d');
 $userid = $row['id'];
 
@@ -59,7 +59,7 @@ $ttp_assurances_count=$num_rows = mysql_num_rows($res);
 
 //Form
 ?>
-<div class=".blockcenter">
+<div class="blockcenter">
 	<table>
 		<tr>
 			<td class="title"><?=sprintf(_('Total assurance points for %s'),$fullname)?></td>
