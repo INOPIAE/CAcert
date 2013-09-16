@@ -656,14 +656,19 @@ div.footerbar {
 
 /********* div align ********/
 .blockcenter {
-    align:center;
+	align:center;
+	margin: 0 auto;
 }
 
 .blockleft {
 	align:left;
+	margin: 0;
+	margin-right:auto;
 }
 
 .blockright {
 	align:right;
+	margin: 0;
+	margin-left:auto;
 }
 

@@ -35,7 +35,7 @@ $mname = $row['mname'];
 $lname = $row['lname'];
 $suffix = $row['suffix'];
 $fullname = $fname." ".$mname." ".$lname." ".$suffix;
-echo 'testausgabe:::'.$fullname . '-'.$row['dob'] . '-' . $row['id'];
+$email = $row['email'];
 $dob = date_format(new DateTime($row['dob']), 'Y-m-d');
 $userid = $row['id'];
 

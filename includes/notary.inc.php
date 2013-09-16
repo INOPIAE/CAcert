@@ -1153,7 +1153,7 @@
 			if (true==$value) {
 				$return_str.='value="'.$avalue.'" ';
 			}
-			if ($ttpcountry==$selection){
+			if ($ttpcountry==$selected){
 				$return_str.='selected="selected"';
 			}
 			$return_str.=' >'.$key.'</option>';
