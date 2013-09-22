@@ -132,33 +132,38 @@ function send_reminder()
 	if($oldid == 4)
 	{
 		if ($_POST['ttp']!='') {
-			//This mail does not need to be translated
-			$body = "Hi TTP adminstrators,\n\n";
-			$body .= "User ".$_SESSION['profile']['fname']." ".
-			$_SESSION['profile']['lname']." with email address '".
-			$_SESSION['profile']['email']."' is requesting a TTP assurances for ".
-			mysql_escape_string(stripslashes($_POST['country'])).".\n\n";
-			if ($_POST['ttptopup']=='1') {
-				$body .= "The user is also requesting TTP TOPUP.\n\n";
-			}else{
-				$body .= "The user is NOT requesting TTP TOPUP.\n\n";
+			if ($_POST['ttp']==_('Choose country')) {
+				$_SESSION['ttp-send']='cc';
+			} else{
+				//This mail does not need to be translated
+				$body = "Hi TTP adminstrators,\n\n";
+				$body .= "User ".$_SESSION['profile']['fname']." ".
+				$_SESSION['profile']['lname']." with email address '".
+				$_SESSION['profile']['email']."' is requesting a TTP assurances for ".
+				mysql_escape_string(stripslashes($_POST['country'])).".\n\n";
+				if ($_POST['ttptopup']=='1') {
+					$body .= "The user is also requesting TTP TOPUP.\n\n";
+				}else{
+					$body .= "The user is NOT requesting TTP TOPUP.\n\n";
+				}
+				$body .= "The user received ".intval($_SESSION['profile']['points'])." assurance points up to today.\n\n";
+				$body .= "Please start the TTP assurance process.";
+				sendmail("support@cacert.org", "[CAcert.org] TTP request.", $body, "support@cacert.org", "", "", "CAcert Website");
+
+				//This mail needs to be translated
+				$body  =_("You are receiving this email because you asked for TTP assurance.")."\n\n";
+				if ($_POST['ttptopup']=='1') {
+					$body .=_("You are requesting TTP TOPUP.")."\n\n";
+				}else{
+					$body .=_("You are NOT requesting TTP TOPUP.")."\n\n";
+				}
+				$body .= _("Best regards")."\n";
+				$body .= _("CAcert Support Team");
+
+				sendmail($_SESSION['profile']['email'], "[CAcert.org] "._("You requested TTP assurances"), $body, "support@cacert.org", "", "", "CAcert Support");
+				$_SESSION['ttp-send']='ok';
 			}
-			$body .= "The user received ".intval($_SESSION['profile']['points'])." assurance points up to today.\n\n";
-			$body .= "Please start the TTP assurance process.";
-			sendmail("support@cacert.org", "[CAcert.org] TTP request.", $body, "support@cacert.org", "", "", "CAcert Website");
-
-			//This mail needs to be translated
-			$body  =_("You are receiving this email because you asked for TTP assurance.")."\n\n";
-			if ($_POST['ttptopup']=='1') {
-				$body .=_("You are requesting TTP TOPUP.")."\n\n";
-			}else{
-				$body .=_("You are NOT requesting TTP TOPUP.")."\n\n";
-			}
-			$body .= _("Best regards")."\n";
-			$body .= _("CAcert Support Team");
-
-			sendmail($_SESSION['profile']['email'], "[CAcert.org] "._("You requested TTP assurances"), $body, "support@cacert.org", "", "", "CAcert Support");
-
+			$id=4;
 		}
 
 	}

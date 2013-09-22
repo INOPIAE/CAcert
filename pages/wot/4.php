@@ -81,3 +81,12 @@ if ($_SESSION['profile']['points']<100){
 	<p><?=_("You reached the maximum points that can be granted by the TTP programme and therefore you cannot take part in the TTP programme any more.")?></p>
 <?
 }
+if (isset($_SESSION['ttp-send'])) {
+	if ('cc'==$_SESSION['ttp-send']) {
+		echo '<br/>' . _('You need to select one of the countries above to request a TTP assurance.');
+	}else{
+		echo '<br/>' . _('You requested a TTP assurance. The TTP team was informed via mail. They will ahortly get incontact with you. Furthermore you recieve a mail about the TTP assurance requet yourself.');
+	}
+	unset($_SESSION['ttp-send']);
+}
+
