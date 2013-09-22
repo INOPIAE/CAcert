@@ -72,7 +72,7 @@ if ($_SESSION['profile']['points']<100){
 		</form>
 */
 ?>
-	<p><?=_("We are working to develop the TTP TOPUP process to be able to fill the gap of the missing 30 assurance points to 100 assurance points. Meanwhile you have to close this gap with face to face assurances from CAcert Assurers. Think not only travelling to populated countries, but as well to assurers visiting your country or area.")?></p>  
+	<p><?=_("We are working to develop the TTP TOPUP process to be able to fill the gap of the missing 30 assurance points to 100 assurance points. Meanwhile you have to close this gap with face to face assurances from CAcert Assurers. Think not only travelling to populated countries, but as well to assurers visiting your country or area.")?></p>
 <?
 	}
 } else {
@@ -80,3 +80,12 @@ if ($_SESSION['profile']['points']<100){
 	<p><?=_("You reached the maximum points that can be granted by the TTP programme and therefore you cannot take part in the TTP programme any more.")?></p>
 <?
 }
+if (isset($_SESSION['ttp-send'])) {
+	if ('cc'==$_SESSION['ttp-send']) {
+		echo '<br/>' . _('You need to select one of the countries above to request a TTP assurance.');
+	}else{
+		echo '<br/>' . _('You requested a TTP assurance. The TTP team was informed via mail. They will ahortly get incontact with you. Furthermore you recieve a mail about the TTP assurance requet yourself.');
+	}
+	unset($_SESSION['ttp-send']);
+}
+
