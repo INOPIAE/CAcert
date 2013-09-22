@@ -129,8 +129,8 @@ function send_reminder()
 
 	if($oldid == 4)
 	{
-		if ($_POST['ttp']!='') {
-			if ($_POST['ttp']==_('Choose country')) {
+		if ($_POST['ttp']!='' && $_POST['country']!='') {
+			if ($_POST['country']==_('Choose country')) {
 				$_SESSION['ttp-send']='cc';
 			} else{
 				//This mail does not need to be translated
