@@ -557,7 +557,12 @@ td.greytxt {
 	text-align: right;
 	vertical-align: bottom;
 }
-
+.bold {
+	font-weight:bold;
+}
+.italic {
+	font-style:italic;
+}
 .title {
 	background: #E2E2E2;
 	font-weight:BOLD;
