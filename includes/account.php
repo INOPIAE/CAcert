@@ -1127,7 +1127,7 @@ function buildSubjectFromSession() {
 					printf(_("It would seem '%s' has already been revoked. I'll skip this for now.")."<br>\n", $row['CN']);
 					continue;
 				}
-				mysql_query("update `emailcerts` set `revoked`='1970-01-01 10:00:01' where `id`='$id'");
+				mysql_query("update `emailcerts` set `revoked`='1970-01-01 10:00:01', `disablelogin` = 1 where `id`='$id'");
 				printf(_("Certificate for '%s' has been revoked.")."<br>\n", $row['CN']);
 			}
 		}
