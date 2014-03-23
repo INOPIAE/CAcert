@@ -1173,7 +1173,7 @@
 	function check_client_cert_expired($cid, $memid){
 		$cid = intval($cid);
 		$memid= intval($memid);
-		$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `expired` > 0";
+		$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `expire` < NOW()";
 		$res = mysql_query($query);
 		return mysql_num_rows($res) > 0;
 	}
