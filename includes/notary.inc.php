@@ -1139,7 +1139,7 @@
 		$memid = intval($memid);
 		$dis = intval($dis);
 		//check if certificate is revoked, if yes make sure that disable is set
-		if (check_cert_revoked($cid, $memid)) {
+		if (check_client_cert_revoked($cid, $memid)) {
 			$dis = 1;
 		}
 		mysql_query("update `emailcerts` set `disablelogin` = '$dis' where `id` = '$cid' and `memid` = '$memid'");
@@ -1152,7 +1152,7 @@
 	 * @param mixed $memid
 	 * @return
 	 */
-	function check_cert_revoked($cid, $memid){
+	function check_client_cert_revoked($cid, $memid){
 		$cid = intval($cid);
 		$memid= intval($memid);
 		$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `revoked` > 0";
