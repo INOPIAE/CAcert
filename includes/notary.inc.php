@@ -1125,3 +1125,37 @@
 	function check_date_difference($date, $diff=1){
 		return (strtotime($date)<=time()+$diff*86400);
 	}
+
+	/**
+	 * cert_login_disable()
+	 * set the disbale flag for cleint certificate login
+	 * @param mixed $cid  certificate id
+	 * @param mixed $dis  new disbaled status flag
+	 * @param mixed $memid user id
+	 * @return
+	 */
+	function cert_login_disable($cid, $dis, $memid){
+		$cid = intval($cid);
+		$memid = intval($memid);
+		$dis = intval($dis);
+		//check if certificate is revoked, if yes make sure that disable is set
+		if (check_cert_revoked($cid, $memid)) {
+			$dis = 1;
+		}
+		mysql_query("update `emailcerts` set `disablelogin` = '$dis' where `id` = '$cid' and `memid` = '$memid'");
+	}
+
+	/**
+	 * check_cert_revoked()
+	 * checks if a certificate is revokes
+	 * @param mixed $cid
+	 * @param mixed $memid
+	 * @return
+	 */
+	function check_cert_revoked($cid, $memid){
+		$cid = intval($cid);
+		$memid= intval($memid);
+		$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `revoked` > 0";
+		$res = mysql_query($query);
+		return mysql_num_rows($res) > 0;
+	}

@@ -1175,7 +1175,8 @@ function buildSubjectFromSession() {
 			{
 				$cid = intval(substr($id,5));
 				$dis=(array_key_exists('disablelogin_'.$cid,$_REQUEST) && $_REQUEST['disablelogin_'.$cid]=="1")?"0":"1";
-				mysql_query("update `emailcerts` set `disablelogin`='$dis' where `id`='$cid' and `memid`='".$_SESSION['profile']['id']."'");
+				$memid = intval($_SESSION['profile']['id']);
+				cert_login_disable($cid, $dis, $memid);
 			}
 			if(substr($id,0,14)=="check_comment_")
 			{
