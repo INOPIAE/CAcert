@@ -40,8 +40,8 @@ my $paranoid=1;
 
 my $debug=0;
 
-#my $serialport="/dev/ttyS0";
-my $serialport="/dev/ttyUSB0";
+my $serialport="/dev/ttyS1";
+#my $serialport="/dev/ttyUSB0";
 
 my $gpgbin="/usr/bin/gpg";
 
@@ -441,12 +441,12 @@ sub calculateDays($)
 {
   if($_[0])
   {
-    my @sum = $dbh->selectrow_array("select sum(`points`) as `total` from `notary` where `to`='".$_[0]."' group by `to`");
+    my @sum = $dbh->selectrow_array("select sum(`points`) as `total` from `notary` where `to`='".$_[0]."' and `deleted`=0 group by `to`");
     SysLog("Summe: $sum[0]\n") if($debug);
 
-    return ($sum[0]>=50)?730:180;
+    return ($sum[0]>=50)?30:3;
   }
-  return 180;
+  return 3;
 }
 
 sub X509extractSAN($)

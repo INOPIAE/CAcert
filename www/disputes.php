@@ -17,6 +17,7 @@
 */ ?>
 <?
 	require_once("../includes/loggedin.php");
+	require_once("../includes/lib/l10n.php");
 	require_once("../includes/notary.inc.php");
 
 	loadem("account");
@@ -27,7 +28,7 @@
 	if($type == "reallyemail")
 	{
 		$emailid = intval($_SESSION['_config']['emailid']);
-		$hash = mysql_escape_string(trim($_SESSION['_config']['hash']));
+		$hash = mysql_real_escape_string(trim($_SESSION['_config']['hash']));
 
 		$res = mysql_query("select * from `disputeemail` where `id`='$emailid' and `hash`='$hash'");
 		if(mysql_num_rows($res) <= 0)
@@ -80,7 +81,7 @@
 	if($type == "email")
 	{
 		$emailid = intval($_REQUEST['emailid']);
-		$hash = trim(mysql_escape_string(stripslashes($_REQUEST['hash'])));
+		$hash = trim(mysql_real_escape_string(stripslashes($_REQUEST['hash'])));
 		if($emailid <= 0 || $hash == "")
 		{
 			showheader(_("Email Dispute"));
@@ -126,7 +127,7 @@
 	if($type == "reallydomain")
 	{
 		$domainid = intval($_SESSION['_config']['domainid']);
-		$hash = mysql_escape_string(trim($_SESSION['_config']['hash']));
+		$hash = mysql_real_escape_string(trim($_SESSION['_config']['hash']));
 
 		$res = mysql_query("select * from `disputedomain` where `id`='$domainid' and `hash`='$hash'");
 		if(mysql_num_rows($res) <= 0)
@@ -167,7 +168,7 @@
 	if($type == "domain")
 	{
 		$domainid = intval($_REQUEST['domainid']);
-		$hash = trim(mysql_escape_string(stripslashes($_REQUEST['hash'])));
+		$hash = trim(mysql_real_escape_string(stripslashes($_REQUEST['hash'])));
 		if($domainid <= 0 || $hash == "")
 		{
 			showheader(_("Domain Dispute"));
@@ -213,7 +214,7 @@
 	if($oldid == "1")
 	{
 		csrf_check('emaildispute');
-		$email = trim(mysql_escape_string(stripslashes($_REQUEST['dispute'])));
+		$email = trim(mysql_real_escape_string(stripslashes($_REQUEST['dispute'])));
 		if($email == "")
 		{
 			showheader(_("Email Dispute"));
@@ -287,11 +288,15 @@
 				`IP`='".$_SERVER['REMOTE_ADDR']."'";
 		mysql_query($query);
 
+		$my_translation = L10n::get_translation();
+		L10n::set_recipient_language($oldmemid);
+
 		$body = sprintf(_("You have been sent this email as the email address '%s' is being disputed. You have the option to accept or reject this request, after 2 days the request will automatically be discarded. Click the following link to accept or reject the dispute:"), $email)."\n\n";
 		$body .= "https://".$_SESSION['_config']['normalhostname']."/disputes.php?type=email&emailid=$emailid&hash=$hash\n\n";
 		$body .= _("Best regards")."\n"._("CAcert.org Support!");
 
 		sendmail($email, "[CAcert.org] "._("Dispute Probe"), $body, "support@cacert.org", "", "", "CAcert Support");
+		L10n::set_translation($my_translation);
 
 		showheader(_("Email Dispute"));
 		printf(_("The email address '%s' has been entered into the dispute system, the email address will now be sent an email which will give the recipent the option of accepting or rejecting the request, if after 2 days we haven't received a valid response for or against we will discard the request."), sanitizeHTML($email));
@@ -302,7 +307,7 @@
 	if($oldid == "2")
 	{
 		csrf_check('domaindispute');
-		$domain = trim(mysql_escape_string(stripslashes($_REQUEST['dispute'])));
+		$domain = trim(mysql_real_escape_string(stripslashes($_REQUEST['dispute'])));
 		if($domain == "")
 		{
 			showheader(_("Domain Dispute"));
@@ -384,7 +389,7 @@
                                 $bits = explode(":", $line, 2);
                                 $line = trim($bits[1]);
                                 if(!in_array($line, $addy) && $line != "")
-                                        $addy[] = trim(mysql_escape_string(stripslashes($line)));
+                                        $addy[] = trim(mysql_real_escape_string(stripslashes($line)));
                         }
                 } else {
                         if(is_array($adds))
@@ -401,7 +406,7 @@
                                                 $line = $bit;
                                 }
                                 if(!in_array($line, $addy) && $line != "")
-                                        $addy[] = trim(mysql_escape_string(stripslashes($line)));
+                                        $addy[] = trim(mysql_real_escape_string(stripslashes($line)));
                         }
                 }
 
@@ -418,7 +423,7 @@
 
 	if($oldid == "5")
 	{
-                $authaddy = trim(mysql_escape_string(stripslashes($_REQUEST['authaddy'])));
+                $authaddy = trim(mysql_real_escape_string(stripslashes($_REQUEST['authaddy'])));
 
                 if(!in_array($authaddy, $_SESSION['_config']['addy']) || $authaddy == "")
                 {
@@ -441,16 +446,19 @@
 		$domainid = intval($_SESSION['_config']['domainid']);
 		$memid = intval($_SESSION['_config']['memid']);
 		$oldmemid = intval($_SESSION['_config']['oldmemid']);
-		$domain = mysql_escape_string($_SESSION['_config']['domain']);
+		$domain = mysql_real_escape_string($_SESSION['_config']['domain']);
 
 		$hash = make_hash();
 		$query = "insert into `disputedomain` set `domain`='$domain',`memid`='".$_SESSION['profile']['id']."',
 				`oldmemid`='$oldmemid',`created`=NOW(),`hash`='$hash',`id`='$domainid'";
 		mysql_query($query);
+		$my_translation = L10n::get_translation();
+		L10n::set_recipient_language($oldmemid);
 
 		$body = sprintf(_("You have been sent this email as the domain '%s' is being disputed. You have the option to accept or reject this request, after 2 days the request will automatically be discarded. Click the following link to accept or reject the dispute:"), $domain)."\n\n";
 		$body .= "https://".$_SESSION['_config']['normalhostname']."/disputes.php?type=domain&domainid=$domainid&hash=$hash\n\n";
 		$body .= _("Best regards")."\n"._("CAcert.org Support!");
+		L10n::set_recipient_language($my_translation);
 
 		sendmail($authaddy, "[CAcert.org] "._("Dispute Probe"), $body, "support@cacert.org", "", "", "CAcert Support");
 

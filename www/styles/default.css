@@ -14,14 +14,14 @@ body {
 	margin: 0px;
 	padding: 0px;
 	background: #cccccc;
-/*  url("/siteimages/bg_grad.jpg") fixed;   */
+/*	url("/siteimages/bg_grad.jpg") fixed;   */
 }
 
 
 /******* hyperlink and anchor tag styles *******/
 
 a:link, a:visited {
-	color: #005fa9;
+	color: #a90000;
 	text-decoration: none;
 }
 
@@ -34,14 +34,14 @@ a:hover {
 
 h1 {
 	font: bold 120% Arial ,sans-serif;
-	color: #334d55;
+	color: #550000;
 	margin: 0px;
 	padding: 0px;
 }
 
 h2 {
 	font: bold 114% Arial ,sans-serif;
-	color: #006699;
+	color: #990000;
 	margin: 0px;
 	padding: 0px;
 }
@@ -92,6 +92,14 @@ ul.top {
 ul.no_indent {
 	list-style: none;
 	padding: 0px;
+}
+
+.attach_ul {
+	margin-bottom: 0px;
+}
+
+.attach_ul + ul {
+	margin-top: 0px;
 }
 
 
@@ -219,7 +227,7 @@ ul.no_indent {
 }
 
 #globalNav img {
-    margin-bottom: -4px;
+	margin-bottom: -4px;
 }
 
 #gnl {
@@ -252,7 +260,7 @@ a.glink, a.glink:visited {
 	font-weight: bold;
 	margin: 0px;
 	padding: 2px 5px 4px 5px;
-	border-right: 1px solid #8fb8bc;
+	border-right: 1px solid #BC8F8F;
 }
 
 a.glink:hover {
@@ -371,7 +379,7 @@ a.glink:hover {
 }
 
 #breadCrumb a:hover {
-	color: #005fa9;
+	color: #A90000;
 	text-decoration: underline;
 }
 
@@ -414,14 +422,10 @@ a.glink:hover {
 	color: #000000;
 }
 
-.story p {
-	padding: 0px 0px 10px 0px;
-}
-
 .story a.capsule {
 	font: bold 1em Arial,sans-serif;
-	color: #005FA9;
-	display: block;
+	color: #A90000;
+	display:block;
 	padding-bottom: 5px;
 }
 
@@ -464,12 +468,12 @@ td.storyLeft {
 	background-image: url("siteimages/bg_nav.jpg");
 	font-weight: bold;
 	padding: 3px 0px 3px 10px;
-	color: #21536A;
+	color: #6A2121;
 }
 
 #sectionLinks a:hover {
 	border-top: 1px solid #cccccc;
-	background-color: #DDEEFF;
+	background-color: #FFDDDD;
 	background-image: none;
 	font-weight: bold;
 	text-decoration: none;
@@ -558,6 +562,19 @@ td.storyLeft {
 	border-right: 1px #cfcfcf solid;
 }
 
+.DataTDError {
+    border-style: inset;
+    border-width: 1px;
+    font-size: 8pt;
+    color: #ff0000;
+    font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+
+    background: #ffffff;
+    padding: 1px 5px 1px 5px;
+    border: 1px #cfcfcf solid;
+    border-left: 1px #cfcfcf dotted;
+    border-right: 1px #cfcfcf dotted;
+}
 .wrapper {
 	border-collapse: collapse;
 	font-family: verdana, sans-serif;
@@ -571,7 +588,12 @@ td.greytxt {
 	text-align: right;
 	vertical-align: bottom;
 }
-
+.bold, .primaryemailaddress {
+	font-weight:bold;
+}
+.italic, .deletedemailaddress {
+	font-style:italic;
+}
 .title {
 	background: #e2e2e2;
 	font-weight: bold;
@@ -597,7 +619,7 @@ td.greytxt {
 }
 
 .ac_highlight {
-	background-color: #3366cc;
+	background-color: #cc3333;
 	color: white;
 	cursor: pointer;
 }
@@ -704,4 +726,22 @@ div.footerbar {
 }
 
 .accountdetail.suffix {
+}
+
+/********* div align ********/
+.blockcenter {
+	text-align:center;
+	margin: 0 auto;
+}
+
+.blockleft {
+	text-align:left;
+	margin: 0;
+	margin-right:auto;
+}
+
+.blockright {
+	text-align:right;
+	margin: 0;
+	margin-left:auto;
 }
