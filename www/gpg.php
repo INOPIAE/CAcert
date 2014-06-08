@@ -63,12 +63,18 @@ if(0)
 function verifyName($name)
 {
 	if($name == "") return 0;
-	if($name == $_SESSION['profile']['fname']." ".$_SESSION['profile']['lname']) return 1;
-	if($name == $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname']." ".$_SESSION['profile']['lname']) return 1;
-	if($name == $_SESSION['profile']['fname']." ".$_SESSION['profile']['lname']." ".$_SESSION['profile']['suffix']) return 1;
-	if($name == $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname']." ".$_SESSION['profile']['lname']." ".$_SESSION['profile']['suffix']) return 1;
-	return 0;
 
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['lname'])) return 1; // John Doe
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname']." ".$_SESSION['profile']['lname'])) return 1; // John Joseph Doe
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname'][0]." ".$_SESSION['profile']['lname'])) return 1; // John J Doe
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname'][0].". ".$_SESSION['profile']['lname'])) return 1; // John J. Doe
+
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['lname']." ".$_SESSION['profile']['suffix'])) return 1; // John Doe Jr.
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname']." ".$_SESSION['profile']['lname']." ".$_SESSION['profile']['suffix'])) return 1; //John Joseph Doe Jr.
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname'][0]." ".$_SESSION['profile']['lname']." ".$_SESSION['profile']['suffix'])) return 1; //John J Doe Jr.
+	if(!strcasecmp($name, $_SESSION['profile']['fname']." ".$_SESSION['profile']['mname'][0].". ".$_SESSION['profile']['lname']." ".$_SESSION['profile']['suffix'])) return 1; //John J. Doe Jr.
+
+	return 0;
 }
 
 function verifyEmail($email)
@@ -187,18 +193,18 @@ function verifyEmail($email)
 			// Name (Comment) <Email>
 			if(preg_match("/^([^\(\)\[@<>]+) \(([^\(\)@<>]*)\) <([\w=\/%.-]*\@[\w.-]*|[\w.-]*\![\w=\/%.-]*)>/",$bits[9],$matches))
 			{
-			  $name=trim(hex2bin($matches[1]));
+			  $name=trim(gpg_hex2bin($matches[1]));
 			  $nocomment=0;
-			  $comm=trim(hex2bin($matches[2]));
-			  $mail=trim(hex2bin($matches[3]));
+			  $comm=trim(gpg_hex2bin($matches[2]));
+			  $mail=trim(gpg_hex2bin($matches[3]));
 			}
 			// Name <EMail>
 			elseif(preg_match("/^([^\(\)\[@<>]+) <([\w=\/%.-]*\@[\w.-]*|[\w.-]*\![\w=\/%.-]*)>/",$bits[9],$matches))
 			{
-			  $name=trim(hex2bin($matches[1]));
+			  $name=trim(gpg_hex2bin($matches[1]));
 			  $nocomment=1;
 			  $comm="";
-			  $mail=trim(hex2bin($matches[2]));
+			  $mail=trim(gpg_hex2bin($matches[2]));
 			}
 			// Unrecognized format
 			else
@@ -357,13 +363,13 @@ function verifyEmail($email)
 					$pos = strlen($bits[9]);
 				}
 
-				$name = trim(hex2bin(trim(substr($bits[9], 0, $pos))));
+				$name = trim(gpg_hex2bin(trim(substr($bits[9], 0, $pos))));
 				$nameok=verifyName($name);
 				if($nocomment == 0)
 				{
 					$pos += 2;
 					$pos2 = strpos($bits[9], ")");
-					$comm = trim(hex2bin(trim(substr($bits[9], $pos, $pos2 - $pos))));
+					$comm = trim(gpg_hex2bin(trim(substr($bits[9], $pos, $pos2 - $pos))));
 					if($comm != "")
 						$comment[] = $comm;
 					$pos = $pos2 + 3;
@@ -374,7 +380,7 @@ function verifyEmail($email)
 				$mail="";
 				if (preg_match("/<([\w.-]*\@[\w.-]*)>/", $bits[9],$match)) {
 					//echo "Found: ".$match[1];
-					$mail = trim(hex2bin($match[1]));
+					$mail = trim(gpg_hex2bin($match[1]));
 				}
 				else
 				{

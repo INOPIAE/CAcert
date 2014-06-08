@@ -17,7 +17,7 @@
 */
 
 require_once('../includes/lib/l10n.php');
-
+require_once('../includes/notary.inc.php');
 
         $id = 0; if(array_key_exists("id",$_REQUEST)) $id=intval($_REQUEST['id']);
         $oldid = 0; if(array_key_exists("oldid",$_REQUEST)) $oldid=intval($_REQUEST['oldid']);
@@ -53,7 +53,7 @@ require_once('../includes/lib/l10n.php');
 		$oldid = 0;
 		if(array_key_exists('Q1',$_REQUEST) && $_REQUEST['Q1'])
 		{
-			$_SESSION['lostpw']['A1'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A1']))));
+			$_SESSION['lostpw']['A1'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A1']))));
 
 			if(stripslashes(strtolower($_SESSION['lostpw']['A1'])) == strtolower($_SESSION['lostpw']['user']['A1']))
 				$answers++;
@@ -61,7 +61,7 @@ require_once('../includes/lib/l10n.php');
 		}
 		if(array_key_exists('Q2',$_REQUEST) && $_REQUEST['Q2'])
 		{
-			$_SESSION['lostpw']['A2'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A2']))));
+			$_SESSION['lostpw']['A2'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A2']))));
 
 			if(stripslashes(strtolower($_SESSION['lostpw']['A2'])) == strtolower($_SESSION['lostpw']['user']['A2']))
 				$answers++;
@@ -69,7 +69,7 @@ require_once('../includes/lib/l10n.php');
 		}
 		if(array_key_exists('Q3',$_REQUEST) && $_REQUEST['Q3'])
 		{
-			$_SESSION['lostpw']['A3'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A3']))));
+			$_SESSION['lostpw']['A3'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A3']))));
 
 			if(stripslashes(strtolower($_SESSION['lostpw']['A3'])) == strtolower($_SESSION['lostpw']['user']['A3']))
 				$answers++;
@@ -77,7 +77,7 @@ require_once('../includes/lib/l10n.php');
 		}
 		if(array_key_exists('Q4',$_REQUEST) && $_REQUEST['Q4'])
 		{
-			$_SESSION['lostpw']['A4'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A4']))));
+			$_SESSION['lostpw']['A4'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A4']))));
 
 			if(stripslashes(strtolower($_SESSION['lostpw']['A4'])) == strtolower($_SESSION['lostpw']['user']['A4']))
 				$answers++;
@@ -85,15 +85,15 @@ require_once('../includes/lib/l10n.php');
 		}
 		if(array_key_exists('Q5',$_REQUEST) && $_REQUEST['Q5'])
 		{
-			$_SESSION['lostpw']['A5'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A5']))));
+			$_SESSION['lostpw']['A5'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A5']))));
 
 			if(stripslashes(strtolower($_SESSION['lostpw']['A5'])) == strtolower($_SESSION['lostpw']['user']['A5']))
 				$answers++;
 			$body .= "System: ".$_SESSION['lostpw']['user']['A5']."\nEntered: ".stripslashes(strip_tags($_SESSION['lostpw']['A5']))."\n";
 		}
 
-		$_SESSION['lostpw']['pw1'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['newpass1']))));
-		$_SESSION['lostpw']['pw2'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['newpass2']))));
+		$_SESSION['lostpw']['pw1'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['newpass1']))));
+		$_SESSION['lostpw']['pw2'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['newpass2']))));
 
 		if($answers < $_SESSION['lostpw']['total'] || $answers < 3)
 		{
@@ -125,12 +125,12 @@ require_once('../includes/lib/l10n.php');
 				showfooter();
 				exit;
 			}
-		}		
+		}
 	}
 
 	if($oldid == 5 && $process != "")
 	{
-		$email = $_SESSION['lostpw']['email'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['email']))));
+		$email = $_SESSION['lostpw']['email'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['email']))));
 		$_SESSION['lostpw']['day'] = intval($_REQUEST['day']);
 		$_SESSION['lostpw']['month'] = intval($_REQUEST['month']);
 		$_SESSION['lostpw']['year'] = intval($_REQUEST['year']);
@@ -148,18 +148,19 @@ require_once('../includes/lib/l10n.php');
 		}
 	}
 
+	//client login
 	if($id == 4 && $_SERVER['HTTP_HOST'] == $_SESSION['_config']['securehostname'])
 	{
 		include_once("../includes/lib/general.php");
 		$user_id = get_user_id_from_cert($_SERVER['SSL_CLIENT_M_SERIAL'],
 				$_SERVER['SSL_CLIENT_I_DN_CN']);
-		
+
 		if($user_id >= 0)
 		{
 			$_SESSION['profile'] = mysql_fetch_assoc(mysql_query(
-				"select * from `users` where 
+				"select * from `users` where
 				`id`='$user_id' and `deleted`=0 and `locked`=0"));
-			
+
 			if($_SESSION['profile']['id'] != 0)
 			{
 				$_SESSION['profile']['loggedin'] = 1;
@@ -170,6 +171,7 @@ require_once('../includes/lib/l10n.php');
 			}
 		}
 	}
+
 
 	if($id == 4 && array_key_exists('profile',$_SESSION) && array_key_exists('loggedin',array($_SESSION['profile'])) && $_SESSION['profile']['loggedin'] == 1)
 	{
@@ -251,8 +253,8 @@ require_once('../includes/lib/l10n.php');
 
 		$_SESSION['_config']['errmsg'] = "";
 
-		$email = mysql_escape_string(stripslashes(strip_tags(trim($_REQUEST['email']))));
-		$pword = mysql_escape_string(stripslashes(trim($_REQUEST['pword'])));
+		$email = mysql_real_escape_string(stripslashes(strip_tags(trim($_REQUEST['email']))));
+		$pword = mysql_real_escape_string(stripslashes(trim($_REQUEST['pword'])));
 		$query = "select * from `users` where `email`='$email' and (`password`=old_password('$pword') or `password`=sha1('$pword') or
 						`password`=password('$pword')) and `verified`=1 and `deleted`=0 and `locked`=0";
 		$res = mysql_query($query);
@@ -307,19 +309,19 @@ require_once('../includes/lib/l10n.php');
 			$_SESSION['profile'] = "";
 			unset($_SESSION['profile']);
 			$_SESSION['profile'] = mysql_fetch_assoc($res);
-			$query = "update `users` set `modified`=NOW(), `password`=sha1('$pword') where `id`='".$_SESSION['profile']['id']."'";
+			$query = "update `users` set `modified`=NOW(), `password`=sha1('$pword') where `id`='".intval($_SESSION['profile']['id'])."'";
 			mysql_query($query);
 
 			if($_SESSION['profile']['language'] == "")
 			{
 				$query = "update `users` set `language`='".L10n::get_translation()."'
-						where `id`='".$_SESSION['profile']['id']."'";
+						where `id`='".intval($_SESSION['profile']['id'])."'";
 				mysql_query($query);
 			} else {
 				L10n::set_translation($_SESSION['profile']['language']);
 				L10n::init_gettext();
 			}
-			$query = "select sum(`points`) as `total` from `notary` where `to`='".$_SESSION['profile']['id']."' group by `to`";
+			$query = "select sum(`points`) as `total` from `notary` where `to`='".intval($_SESSION['profile']['id'])."' and `deleted`=0 group by `to`";
 			$res = mysql_query($query);
 			$row = mysql_fetch_assoc($res);
 			$_SESSION['profile']['points'] = $row['total'];
@@ -331,12 +333,16 @@ require_once('../includes/lib/l10n.php');
 				$_SESSION['_config']['errmsg'] .= _("For your own security you must enter 5 lost password questions and answers.")."<br>";
 				$_SESSION['_config']['oldlocation'] = "account.php?id=13";
 			}
+			if (!isset($_SESSION['_config']['oldlocation'])){
+				$_SESSION['_config']['oldlocation']='';
+			}
 			if (checkpwlight($pword) < 3)
 				$_SESSION['_config']['oldlocation'] = "account.php?id=14&force=1";
-			if($_SESSION['_config']['oldlocation'] != "")
+			if($_SESSION['_config']['oldlocation'] != ""){
 				header("location: https://".$_SERVER['HTTP_HOST']."/".$_SESSION['_config']['oldlocation']);
-			else
+			}else{
 				header("location: https://".$_SERVER['HTTP_HOST']."/account.php");
+			}
 			exit;
 		}
 
@@ -351,6 +357,40 @@ require_once('../includes/lib/l10n.php');
 		}
 	}
 
+// check for CCA acceptance prior to login
+if ($oldid == 52 )
+{
+	// Check if the user is already authenticated
+	if (!array_key_exists('profile',$_SESSION)
+			|| !array_key_exists('loggedin',$_SESSION['profile'])
+			|| $_SESSION['profile']['loggedin'] != 1)
+	{
+		header("Location: https://{$_SERVER['HTTP_HOST']}/index.php?id=4");
+		exit;
+	}
+
+	if (array_key_exists('agree',$_REQUEST) && $_REQUEST['agree'] != "")
+	{
+		write_user_agreement($_SESSION['profile']['id'], "CCA", "Login acception", "", 1);
+		$_SESSION['profile']['ccaagreement']=get_user_agreement_status($_SESSION['profile']['id'],'CCA');
+
+		if (array_key_exists("oldlocation",$_SESSION['_config'])
+				&& $_SESSION['_config']['oldlocation']!="")
+		{
+			header("Location: https://{$_SERVER['HTTP_HOST']}/{$_SESSION['_config']['oldlocation']}");
+			exit;
+		} else {
+			header("Location: https://{$_SERVER['HTTP_HOST']}/account.php");
+			exit;
+		}
+	}
+
+	// User didn't agree
+	header("Location: https://{$_SERVER['HTTP_HOST']}/index.php?id=4");
+	exit;
+}
+
+
 	if($process && $oldid == 1)
 	{
 		$id = 2;
@@ -358,26 +398,26 @@ require_once('../includes/lib/l10n.php');
 
 		$_SESSION['_config']['errmsg'] = "";
 
-		$_SESSION['signup']['email'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['email']))));
-		$_SESSION['signup']['fname'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['fname']))));
-		$_SESSION['signup']['mname'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['mname']))));
-		$_SESSION['signup']['lname'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['lname']))));
-		$_SESSION['signup']['suffix'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['suffix']))));
+		$_SESSION['signup']['email'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['email']))));
+		$_SESSION['signup']['fname'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['fname']))));
+		$_SESSION['signup']['mname'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['mname']))));
+		$_SESSION['signup']['lname'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['lname']))));
+		$_SESSION['signup']['suffix'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['suffix']))));
 		$_SESSION['signup']['day'] = intval($_REQUEST['day']);
 		$_SESSION['signup']['month'] = intval($_REQUEST['month']);
 		$_SESSION['signup']['year'] = intval($_REQUEST['year']);
-		$_SESSION['signup']['pword1'] = trim(mysql_escape_string(stripslashes($_REQUEST['pword1'])));
-		$_SESSION['signup']['pword2'] = trim(mysql_escape_string(stripslashes($_REQUEST['pword2'])));
-		$_SESSION['signup']['Q1'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['Q1']))));
-		$_SESSION['signup']['Q2'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['Q2']))));
-		$_SESSION['signup']['Q3'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['Q3']))));
-		$_SESSION['signup']['Q4'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['Q4']))));
-		$_SESSION['signup']['Q5'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['Q5']))));
-		$_SESSION['signup']['A1'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A1']))));
-		$_SESSION['signup']['A2'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A2']))));
-		$_SESSION['signup']['A3'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A3']))));
-		$_SESSION['signup']['A4'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A4']))));
-		$_SESSION['signup']['A5'] = trim(mysql_escape_string(stripslashes(strip_tags($_REQUEST['A5']))));
+		$_SESSION['signup']['pword1'] = trim(mysql_real_escape_string(stripslashes($_REQUEST['pword1'])));
+		$_SESSION['signup']['pword2'] = trim(mysql_real_escape_string(stripslashes($_REQUEST['pword2'])));
+		$_SESSION['signup']['Q1'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['Q1']))));
+		$_SESSION['signup']['Q2'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['Q2']))));
+		$_SESSION['signup']['Q3'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['Q3']))));
+		$_SESSION['signup']['Q4'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['Q4']))));
+		$_SESSION['signup']['Q5'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['Q5']))));
+		$_SESSION['signup']['A1'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A1']))));
+		$_SESSION['signup']['A2'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A2']))));
+		$_SESSION['signup']['A3'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A3']))));
+		$_SESSION['signup']['A4'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A4']))));
+		$_SESSION['signup']['A5'] = trim(mysql_real_escape_string(stripslashes(strip_tags($_REQUEST['A5']))));
 		$_SESSION['signup']['general'] = intval(array_key_exists('general',$_REQUEST)?$_REQUEST['general']:0);
 		$_SESSION['signup']['country'] = intval(array_key_exists('country',$_REQUEST)?$_REQUEST['country']:0);
 		$_SESSION['signup']['regional'] = intval(array_key_exists('regional',$_REQUEST)?$_REQUEST['regional']:0);
@@ -466,7 +506,7 @@ require_once('../includes/lib/l10n.php');
 		if($score < 3)
 		{
 			$id = 1;
-			$_SESSION['_config']['errmsg'] = _("The Pass Phrase you submitted failed to contain enough differing characters and/or contained words from your name and/or email address. Only scored $score points out of 6.");
+			$_SESSION['_config']['errmsg'] = sprintf(_("The Pass Phrase you submitted failed to contain enough differing characters and/or contained words from your name and/or email address. Only scored %s points out of 6."), $score);
 		}
 
 		if($id == 2)
@@ -499,7 +539,7 @@ require_once('../includes/lib/l10n.php');
 			if($checkemail != "OK")
 			{
 				$id = 1;
-				if (substr($checkemail, 0, 1) == "4") 
+				if (substr($checkemail, 0, 1) == "4")
 				{
 					$_SESSION['_config']['errmsg'] .= _("The mail server responsible for your domain indicated a temporary failure. This may be due to anti-SPAM measures, such as greylisting. Please try again in a few minutes.");
 				} else {
@@ -545,7 +585,6 @@ require_once('../includes/lib/l10n.php');
 						`regional`='".$_SESSION['signup']['regional']."',
 						`radius`='".$_SESSION['signup']['radius']."'";
 			mysql_query($query);
-			include_once("../includes/notary.inc.php");
 			write_user_agreement($memid, "CCA", "account creation", "", 1);
 
 			$body = _("Thanks for signing up with CAcert.org, below is the link you need to open to verify your account. Once your account is verified you will be able to start issuing certificates till your hearts' content!")."\n\n";
@@ -566,9 +605,9 @@ require_once('../includes/lib/l10n.php');
 		$subject = stripslashes($_REQUEST['subject']);
 		$message = stripslashes($_REQUEST['message']);
 		$secrethash = $_REQUEST['secrethash2'];
-		
+
 		//check for spam via honeypot
-		if(!isset($_REQUEST['robotest']) || !empty($_REQUEST['robotest'])){ 
+		if(!isset($_REQUEST['robotest']) || !empty($_REQUEST['robotest'])){
 			echo _("Form could not be sent.");
 			showfooter();
 			exit;
@@ -641,7 +680,7 @@ require_once('../includes/lib/l10n.php');
 		$newUrl = $protocol . '://wiki.cacert.org/FAQ/AboutUs';
 		header('Location: '.$newUrl, true, 301); // 301 = Permanently Moved
 	}
-	
+
 	if ($id == 19)
 	{
 		$protocol = $_SERVER['HTTPS'] ? 'https' : 'http';
@@ -655,7 +694,8 @@ require_once('../includes/lib/l10n.php');
 		$newUrl = $protocol . '://wiki.cacert.org/Board';
 		header('Location: '.$newUrl, true, 301); // 301 = Permanently Moved
 	}
-	
+
+
 	showheader(_("Welcome to CAcert.org"));
 	includeit($id);
 	showfooter();

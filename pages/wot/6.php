@@ -17,20 +17,23 @@
 */ ?>
 <?
 
-        if(!array_key_exists('notarise',$_SESSION['_config']))
+if(!array_key_exists('notarise',$_SESSION['_config']))
 	{
-          echo "Error: No user data found.";
-	  exit;
+		echo "Error: No user data found.";
+		exit;
 	}
 
 	$row = $_SESSION['_config']['notarise'];
+	$_SESSION['assuresomeone']['year'] = '';
+	$_SESSION['assuresomeone']['month'] = '';
+	$_SESSION['assuresomeone']['day'] = '';
 
-	if($_SESSION['profile']['ttpadmin'] == 1)
-//		$methods = array("Face to Face Meeting", "Trusted 3rd Parties", "TopUP");
-//	else
-		$methods = array("Face to Face Meeting", "Trusted 3rd Parties");
+	if($_SESSION['profile']['ttpadmin'] == 2)
+		$methods = array('Face to Face Meeting', 'TTP-Assisted', 'TTP-TOPUP');
+	elseif($_SESSION['profile']['ttpadmin'] == 1)
+		$methods = array('Face to Face Meeting', 'TTP-Assisted');
 	else
-		$methods = array("Face to Face Meeting");
+		$methods = array('Face to Face Meeting');
 
 	$mnames = array(
 		'01' => _('January'),
@@ -79,7 +82,12 @@
 	AssureTextLine("",_("Only tick the next box if the Assurance was face to face."));
 	AssureBoxLine("assertion",_("I believe that the assertion of identity I am making is correct, complete and verifiable. I have seen original documentation attesting to this identity. I accept that the CAcert Arbitrator may call upon me to provide evidence in any dispute, and I may be held responsible."),array_key_exists('assertion',$_POST) && $_POST['assertion'] == 1);
 	AssureBoxLine("rules",_("I have read and understood the CAcert Community Agreement (CCA), Assurance Policy and the Assurance Handbook. I am making this Assurance subject to and in compliance with the CCA, Assurance policy and handbook."),array_key_exists('rules',$_POST) && $_POST['rules'] == 1);
-	AssureTextLine(_("Policy"),"<a href=\"/policy/CAcertCommunityAgreement.php\" target=\"_blank\">"._("CAcert Community Agreement")."</a> -<a href=\"/policy/AssurancePolicy.php\" target=\"_blank\">"._("Assurance Policy")."</a> - <a href=\"http://wiki.cacert.org/AssuranceHandbook2\" target=\"_blank\">"._("Assurance Handbook")."</a>");
+	AssureTextLine(_("Policy"),"<a href=\"/policy/CAcertCommunityAgreement.html\" target=\"_blank\">"._("CAcert Community Agreement")."</a> - <a href=\"/policy/AssurancePolicy.html\" target=\"_blank\">"._("Assurance Policy")."</a> - <a href=\"http://wiki.cacert.org/AssuranceHandbook2\" target=\"_blank\">"._("Assurance Handbook")."</a>");
 	AssureInboxLine("points",_("Points"),"","<br />(Max. ".maxpoints().")");
 	AssureFoot($id,_("I confirm this Assurance"));
+
+	if($_SESSION['profile']['ttpadmin'] >= 1) {
+		?><div class='blockcenter'><a href="wot.php?id=16"><?=_('Show TTP details')?></a></div><?
+	}
+
 ?>
