@@ -942,238 +942,238 @@
 	}
 
 
-	function check_email_exists($email){
-	// called from includes/account.php if($process != "" && $oldid == 1)
-	// called from includes/account.php	if($oldid == 50 && $process != "")
-		$email = mysql_real_escape_string($email);
-		$query = "select 1 from `email` where `email`='$email' and `deleted`=0";
-		$res = mysql_query($query);
-		return mysql_num_rows($res) > 0;
-	}
+function check_email_exists($email){
+// called from includes/account.php if($process != "" && $oldid == 1)
+// called from includes/account.php	if($oldid == 50 && $process != "")
+$email = mysql_real_escape_string($email);
+$query = "select 1 from `email` where `email`='$email' and `deleted`=0";
+$res = mysql_query($query);
+return mysql_num_rows($res) > 0;
+}
 
-	function check_gpg_cert_running($uid,$cca=0){
-		//if $cca =0 if just expired, =1 if CCA retention +3 month should be obeyed
-		// called from includes/account.php	if($oldid == 50 && $process != "")
-		$uid = intval($uid);
-		if (0==$cca) {
-			$query = "select 1 from `gpg` where `memid`='$uid' and `expire`>NOW()";
-		}else{
-			$query = "select 1 from `gpg` where `memid`='$uid' and `expire`>(NOW()-90*86400)";
-		}
-		$res = mysql_query($query);
-		return mysql_num_rows($res) > 0;
-	}
+function check_gpg_cert_running($uid,$cca=0){
+//if $cca =0 if just expired, =1 if CCA retention +3 month should be obeyed
+// called from includes/account.php	if($oldid == 50 && $process != "")
+$uid = intval($uid);
+if (0==$cca) {
+$query = "select 1 from `gpg` where `memid`='$uid' and `expire`>NOW()";
+}else{
+$query = "select 1 from `gpg` where `memid`='$uid' and `expire`>(NOW()-90*86400)";
+}
+$res = mysql_query($query);
+return mysql_num_rows($res) > 0;
+}
 
-	function check_client_cert_running($uid,$cca=0){
-		//if $cca =0 if just expired, =1 if CCA retention +3 month should be obeyed
-		// called from includes/account.php	if($oldid == 50 && $process != "")
-		$uid = intval($uid);
-		if (0==$cca) {
-			$query1 = "select 1 from `emailcerts` where `memid`='$uid' and `expire`>NOW() and `revoked`<`created`";
-			$query2 = "select 1 from `emailcerts` where `memid`='$uid' and `revoked`>NOW()";
-		}else{
-			$query1 = "select 1 from `emailcerts` where `memid`='$uid' and `expire`>(NOW()-90*86400)  and `revoked`<`created`";
-			$query2 = "select 1 from `emailcerts` where `memid`='$uid' and `revoked`>(NOW()-90*86400)";
-		}
-		$res = mysql_query($query1);
-		$r1 = mysql_num_rows($res)>0;
-		$res = mysql_query($query2);
-		$r2 = mysql_num_rows($res)>0;
-		return !!($r1 || $r2);
-	}
+function check_client_cert_running($uid,$cca=0){
+//if $cca =0 if just expired, =1 if CCA retention +3 month should be obeyed
+// called from includes/account.php	if($oldid == 50 && $process != "")
+$uid = intval($uid);
+if (0==$cca) {
+$query1 = "select 1 from `emailcerts` where `memid`='$uid' and `expire`>NOW() and `revoked`<`created`";
+$query2 = "select 1 from `emailcerts` where `memid`='$uid' and `revoked`>NOW()";
+}else{
+$query1 = "select 1 from `emailcerts` where `memid`='$uid' and `expire`>(NOW()-90*86400)  and `revoked`<`created`";
+$query2 = "select 1 from `emailcerts` where `memid`='$uid' and `revoked`>(NOW()-90*86400)";
+}
+$res = mysql_query($query1);
+$r1 = mysql_num_rows($res)>0;
+$res = mysql_query($query2);
+$r2 = mysql_num_rows($res)>0;
+return !!($r1 || $r2);
+}
 
-	function check_server_cert_running($uid,$cca=0){
-		//if $cca =0 if just expired, =1 if CCA retention +3 month should be obeyed
-		// called from includes/account.php	if($oldid == 50 && $process != "")
-		$uid = intval($uid);
-		if (0==$cca) {
-			$query1 = "
-				select 1 from `domaincerts` join `domains`
-					on `domaincerts`.`domid` = `domains`.`id`
-				where `domains`.`memid` = '$uid'
-					and `domaincerts`.`expire` > NOW()
-					and `domaincerts`.`revoked` < `domaincerts`.`created`";
-			$query2 = "
-				select 1 from `domaincerts` join `domains`
-					on `domaincerts`.`domid` = `domains`.`id`
-				where `domains`.`memid` = '$uid'
-					and `revoked`>NOW()";
-		}else{
-			$query1 = "
-				select 1 from `domaincerts` join `domains`
-					on `domaincerts`.`domid` = `domains`.`id`
-				where `domains`.`memid` = '$uid'
-					and `expire`>(NOW()-90*86400)
-					and `revoked`<`created`";
-			$query2 = "
-				select 1 from `domaincerts` join `domains`
-					on `domaincerts`.`domid` = `domains`.`id`
-				where `domains`.`memid` = '$uid'
-					and `revoked`>(NOW()-90*86400)";
-		}
-		$res = mysql_query($query1);
-		$r1 = mysql_num_rows($res)>0;
-		$res = mysql_query($query2);
-		$r2 = mysql_num_rows($res)>0;
-		return !!($r1 || $r2);
-	}
+function check_server_cert_running($uid,$cca=0){
+//if $cca =0 if just expired, =1 if CCA retention +3 month should be obeyed
+// called from includes/account.php	if($oldid == 50 && $process != "")
+$uid = intval($uid);
+if (0==$cca) {
+$query1 = "
+select 1 from `domaincerts` join `domains`
+	on `domaincerts`.`domid` = `domains`.`id`
+where `domains`.`memid` = '$uid'
+	and `domaincerts`.`expire` > NOW()
+	and `domaincerts`.`revoked` < `domaincerts`.`created`";
+$query2 = "
+select 1 from `domaincerts` join `domains`
+	on `domaincerts`.`domid` = `domains`.`id`
+where `domains`.`memid` = '$uid'
+	and `revoked`>NOW()";
+}else{
+$query1 = "
+select 1 from `domaincerts` join `domains`
+	on `domaincerts`.`domid` = `domains`.`id`
+where `domains`.`memid` = '$uid'
+	and `expire`>(NOW()-90*86400)
+	and `revoked`<`created`";
+$query2 = "
+select 1 from `domaincerts` join `domains`
+	on `domaincerts`.`domid` = `domains`.`id`
+where `domains`.`memid` = '$uid'
+	and `revoked`>(NOW()-90*86400)";
+}
+$res = mysql_query($query1);
+$r1 = mysql_num_rows($res)>0;
+$res = mysql_query($query2);
+$r2 = mysql_num_rows($res)>0;
+return !!($r1 || $r2);
+}
 
-	function check_is_orgadmin($uid){
-		// called from includes/account.php	if($oldid == 50 && $process != "")
-		$uid = intval($uid);
-		$query = "select 1 from `org` where `memid`='$uid' and `deleted`=0";
-		$res = mysql_query($query);
-		return mysql_num_rows($res) > 0;
-	}
-
-
-	// revokation of certificates
-	function revoke_all_client_cert($mailid){
-		//revokes all client certificates for an email address
-		$mailid = intval($mailid);
-		$query = "select `emailcerts`.`id`
-			from `emaillink`,`emailcerts` where
-			`emaillink`.`emailid`='$mailid' and `emaillink`.`emailcertsid`=`emailcerts`.`id` and `emailcerts`.`revoked`=0
-			group by `emailcerts`.`id`";
-		$dres = mysql_query($query);
-		while($drow = mysql_fetch_assoc($dres)){
-			mysql_query("update `emailcerts` set `revoked`='1970-01-01 10:00:01', `disablelogin`=1 where `id`='".$drow['id']."'");
-		}
-	}
-
-	function revoke_all_server_cert($domainid){
-		//revokes all server certs for an domain
-		$domainid = intval($domainid);
-		$query =
-			"select `domaincerts`.`id`
-				from `domaincerts`
-				where `domaincerts`.`domid` = '$domainid'
-			union distinct
-			select `domaincerts`.`id`
-				from `domaincerts`, `domlink`
-				where `domaincerts`.`id` = `domlink`.`certid`
-				and `domlink`.`domid` = '$domainid'";
-		$dres = mysql_query($query);
-		while($drow = mysql_fetch_assoc($dres))
-		{
-			mysql_query(
-			"update `domaincerts`
-				set `revoked`='1970-01-01 10:00:01'
-				where `id` = '".$drow['id']."'
-				and `revoked` = 0");
-		}
-	}
-
-	function revoke_all_private_cert($uid){
-		//revokes all certificates linked to a personal accounts
-		//gpg revokation needs to be added to a later point
-		$uid=intval($uid);
-		$query = "select `id` from `email` where `memid`='".$uid."'";
-		$res=mysql_query($query);
-		while($row = mysql_fetch_assoc($res)){
-			revoke_all_client_cert($row['id']);
-		}
+function check_is_orgadmin($uid){
+// called from includes/account.php	if($oldid == 50 && $process != "")
+$uid = intval($uid);
+$query = "select 1 from `org` where `memid`='$uid' and `deleted`=0";
+$res = mysql_query($query);
+return mysql_num_rows($res) > 0;
+}
 
 
-		$query = "select `id` from `domains` where `memid`='".$uid."'";
-		$res=mysql_query($query);
-		while($row = mysql_fetch_assoc($res)){
-			revoke_all_server_cert($row['id']);
-		}
-	}
+// revokation of certificates
+function revoke_all_client_cert($mailid){
+//revokes all client certificates for an email address
+$mailid = intval($mailid);
+$query = "select `emailcerts`.`id`
+from `emaillink`,`emailcerts` where
+`emaillink`.`emailid`='$mailid' and `emaillink`.`emailcertsid`=`emailcerts`.`id` and `emailcerts`.`revoked`=0
+group by `emailcerts`.`id`";
+$dres = mysql_query($query);
+while($drow = mysql_fetch_assoc($dres)){
+mysql_query("update `emailcerts` set `revoked`='1970-01-01 10:00:01', `disablelogin`=1 where `id`='".$drow['id']."'");
+}
+}
 
-	/**
-	 * check_date_format()
-	 * checks if the date is entered in the right date format YYYY-MM-DD and
-	 * if the date is after the 1st January of the given year
-	 *
-	 * @param mixed $date
-	 * @param integer $year
-	 * @return
-	 */
-	function check_date_format($date, $year=2000){
-		if (!strpos($date,'-')) {
-			return FALSE;
-		}
-		$arr=explode('-',$date);
+function revoke_all_server_cert($domainid){
+//revokes all server certs for an domain
+$domainid = intval($domainid);
+$query =
+"select `domaincerts`.`id`
+from `domaincerts`
+where `domaincerts`.`domid` = '$domainid'
+union distinct
+select `domaincerts`.`id`
+from `domaincerts`, `domlink`
+where `domaincerts`.`id` = `domlink`.`certid`
+and `domlink`.`domid` = '$domainid'";
+$dres = mysql_query($query);
+while($drow = mysql_fetch_assoc($dres))
+{
+mysql_query(
+"update `domaincerts`
+set `revoked`='1970-01-01 10:00:01'
+where `id` = '".$drow['id']."'
+and `revoked` = 0");
+}
+}
 
-		if ((count($arr)!=3)) {
-			return FALSE;
-		}
-		if (intval($arr[0])<=$year) {
-			return FALSE;
-		}
-		if (intval($arr[1])>12 or intval($arr[1])<=0) {
-			return FALSE;
-		}
-		if (intval($arr[2])>31 or intval($arr[2])<=0) {
-			return FALSE;
-		}
+function revoke_all_private_cert($uid){
+//revokes all certificates linked to a personal accounts
+//gpg revokation needs to be added to a later point
+$uid=intval($uid);
+$query = "select `id` from `email` where `memid`='".$uid."'";
+$res=mysql_query($query);
+while($row = mysql_fetch_assoc($res)){
+revoke_all_client_cert($row['id']);
+}
 
-		return checkdate( intval($arr[1]), intval($arr[2]), intval($arr[0]));
 
-	}
+$query = "select `id` from `domains` where `memid`='".$uid."'";
+$res=mysql_query($query);
+while($row = mysql_fetch_assoc($res)){
+revoke_all_server_cert($row['id']);
+}
+}
 
-	/**
-	 * check_date_difference()
-	 * returns false if the date is larger then today + time diffrence
-	 *
-	 * @param mixed $date
-	 * @param integer $diff
-	 * @return
-	 */
-	function check_date_difference($date, $diff=1){
-		return (strtotime($date)<=time()+$diff*86400);
-	}
+/**
+* check_date_format()
+* checks if the date is entered in the right date format YYYY-MM-DD and
+* if the date is after the 1st January of the given year
+*
+* @param mixed $date
+* @param integer $year
+* @return
+*/
+function check_date_format($date, $year=2000){
+if (!strpos($date,'-')) {
+return FALSE;
+}
+$arr=explode('-',$date);
 
-	/**
-	 * cert_login_disable()
-	 * set the disbale flag for cleint certificate login
-	 * @param mixed $cid  certificate id
-	 * @param mixed $dis  new disbaled status flag
-	 * @param mixed $memid user id
-	 * @return
-	 */
-	function cert_login_disable($cid, $dis, $memid){
-		$cid = intval($cid);
-		$memid = intval($memid);
-		$dis = intval($dis);
-		//check if certificate is revoked, if yes make sure that disable is set
-		if (check_client_cert_revoked($cid, $memid)) {
-			$dis = 1;
-		}
-		//check if certificate is revoked, if yes make sure that disable is set
-		if (check_client_cert_expired($cid, $memid)) {
-			$dis = 1;
-		}		mysql_query("update `emailcerts` set `disablelogin` = '$dis' where `id` = '$cid' and `memid` = '$memid'");
-	}
+if ((count($arr)!=3)) {
+return FALSE;
+}
+if (intval($arr[0])<=$year) {
+return FALSE;
+}
+if (intval($arr[1])>12 or intval($arr[1])<=0) {
+return FALSE;
+}
+if (intval($arr[2])>31 or intval($arr[2])<=0) {
+return FALSE;
+}
 
-	/**
-	 * check_client_cert_revoked()
-	 * checks if a certificate is revoked
-	 * @param mixed $cid
-	 * @param mixed $memid
-	 * @return
-	 */
-	function check_client_cert_revoked($cid, $memid){
-		$cid = intval($cid);
-		$memid= intval($memid);
-		$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `revoked` > 0";
-		$res = mysql_query($query);
-		return mysql_num_rows($res) > 0;
-	}
+return checkdate( intval($arr[1]), intval($arr[2]), intval($arr[0]));
 
-	/**
-	 * check_client_cert_expired()
-	 * checks if a certificate is expired
-	 * @param mixed $cid
-	 * @param mixed $memid
-	 * @return
-	 */
-	function check_client_cert_expired($cid, $memid){
-		$cid = intval($cid);
-		$memid= intval($memid);
-		$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `expire` < NOW()";
-		$res = mysql_query($query);
-		return mysql_num_rows($res) > 0;
-	}
+}
+
+/**
+* check_date_difference()
+* returns false if the date is larger then today + time diffrence
+*
+* @param mixed $date
+* @param integer $diff
+* @return
+*/
+function check_date_difference($date, $diff=1){
+return (strtotime($date)<=time()+$diff*86400);
+}
+
+/**
+* cert_login_disable()
+* set the disbale flag for cleint certificate login
+* @param mixed $cid  certificate id
+* @param mixed $dis  new disbaled status flag
+* @param mixed $memid user id
+* @return
+*/
+function cert_login_disable($cid, $dis, $memid){
+$cid = intval($cid);
+$memid = intval($memid);
+$dis = intval($dis);
+//check if certificate is revoked, if yes make sure that disable is set
+if (check_client_cert_revoked($cid, $memid)) {
+$dis = 1;
+}
+//check if certificate is revoked, if yes make sure that disable is set
+if (check_client_cert_expired($cid, $memid)) {
+$dis = 1;
+}		mysql_query("update `emailcerts` set `disablelogin` = '$dis' where `id` = '$cid' and `memid` = '$memid'");
+}
+
+/**
+* check_client_cert_revoked()
+* checks if a certificate is revoked
+* @param mixed $cid
+* @param mixed $memid
+* @return
+*/
+function check_client_cert_revoked($cid, $memid){
+$cid = intval($cid);
+$memid= intval($memid);
+$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `revoked` > 0";
+$res = mysql_query($query);
+return mysql_num_rows($res) > 0;
+}
+
+/**
+* check_client_cert_expired()
+* checks if a certificate is expired
+* @param mixed $cid
+* @param mixed $memid
+* @return
+*/
+function check_client_cert_expired($cid, $memid){
+$cid = intval($cid);
+$memid= intval($memid);
+$query = "select 1 from `emailcerts` where `id`='$cid' and `memid`= $memid and `expire` < NOW()";
+$res = mysql_query($query);
+return mysql_num_rows($res) > 0;
+}
