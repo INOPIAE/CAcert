@@ -25,8 +25,9 @@
 		if(preg_match("/^\d+$/",$domain))
 			$domainsearch = "";
 		//check if request is id if not set search ID to -1
-		$domainid = intval($domain);
-		if($domain !== $domainid){
+		if(preg_match('/^#(\d+)$/', $searchstring, $match)) {
+			$domainid = $match[1];
+		} else {
 			$domainid = -1;
 		}
 
