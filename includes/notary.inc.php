@@ -2158,8 +2158,6 @@ function revoke_assurance($assuranceid, $toid){
 	$res = mysql_query($query);
 	while($row = mysql_fetch_assoc($res)){
 		if ($row['points'] < $row['awarded'] and $points < 100) {
-
-			$diff = $row['awarded'];
 			if ($row['awarded'] + $points < 100) {
 				$newpoints = $row['awarded'];
 			} else {
@@ -2171,6 +2169,7 @@ function revoke_assurance($assuranceid, $toid){
 		} else {
 			$points += $row['points'];
 		}
+
 		if ($points >= 100) {
 			break;
 		}
