@@ -34,69 +34,84 @@ function fix_assurer_flag($userID = NULL)
 	// We may have some performance issues here if no userID is given
 	// there are ~150k assurances and ~220k users currently
 	// but the exists-clause on cats_passed should be a good filter
-	$sql = '
-		UPDATE `users` AS `u` SET `assurer` = 1
-		WHERE '.(
-					($userID === NULL) ?
-					'`u`.`assurer` = 0' :
-					'`u`.`id` = \''.intval($userID).'\''
-				).'
-			AND EXISTS(
-				SELECT 1 FROM `cats_passed` AS `cp`, `cats_variant` AS `cv`
-				WHERE `cp`.`variant_id` = `cv`.`id`
-					AND `cv`.`type_id` = 1
-					AND `cp`.`user_id` = `u`.`id`
-			)
-			AND (
-				SELECT SUM(`points`) FROM `notary` AS `n`
-				WHERE `n`.`to` = `u`.`id`
-					AND (`n`.`expire` > now()
-					     OR `n`.`expire` IS NULL)
-					AND `n`.`deleted` = 0
-			) >= 100';
-
-	$query = mysql_query($sql);
-	if (!$query) {
-		return false;
+	$where = '';
+	$fres = true;
+	if ($userID != NULL) {
+		$where = ' and `u`.`id` = ' . intval($userID);
 	}
-	// Challenge has been passed and non-expired points >= 100
-
-	// Reset flag if requirements are not met
-	//
-	// Also a bit performance critical but assurer flag is only set on
-	// ~5k accounts
-	$sql = '
-		UPDATE `users` AS `u` SET `assurer` = 0
-		WHERE '.(
-					($userID === NULL) ?
-					'`u`.`assurer` <> 0' :
-					'`u`.`id` = \''.intval($userID).'\''
-				).'
-			AND (
-				NOT EXISTS(
-					SELECT 1 FROM `cats_passed` AS `cp`,
-						`cats_variant` AS `cv`
-					WHERE `cp`.`variant_id` = `cv`.`id`
-						AND `cv`.`type_id` = 1
-						AND `cp`.`user_id` = `u`.`id`
-				)
-				OR (
-					SELECT SUM(`points`) FROM `notary` AS `n`
-					WHERE `n`.`to` = `u`.`id`
-						AND (
-							`n`.`expire` > now()
-							OR `n`.`expire` IS NULL
-						)
-						AND `n`.`deleted` = 0
-				) < 100
-			)';
-
-	$query = mysql_query($sql);
-	if (!$query) {
-		return false;
+	$query = "Select  `u`.`id`,
+				(if(EXISTS(
+						SELECT 1 FROM `cats_passed` AS `cp`, `cats_variant` AS `cv`
+							WHERE `cp`.`variant_id` = `cv`.`id`
+							AND `cv`.`type_id` = 1
+							AND `cp`.`user_id` = `u`.`id`)
+					,1,0)) as cats,
+				(if(
+					(SELECT SUM(`points`) FROM `notary` AS `n`
+						WHERE `n`.`to` = `u`.`id`
+						AND (`n`.`expire` > now()
+						OR `n`.`expire` IS NULL)
+						AND `n`.`deleted` = 0) is null,
+					0,
+					(SELECT SUM(`points`) FROM `notary` AS `n`
+						WHERE `n`.`to` = `u`.`id`
+						AND (`n`.`expire` > now()
+						OR `n`.`expire` IS NULL)
+						AND `n`.`deleted` = 0)
+					)) as points,
+				`u`.`assurer`
+				from `users` AS `u`
+				WHERE (((if(EXISTS(
+						SELECT 1 FROM `cats_passed` AS `cp`, `cats_variant` AS `cv`
+							WHERE `cp`.`variant_id` = `cv`.`id`
+							AND `cv`.`type_id` = 1
+							AND `cp`.`user_id` = `u`.`id`
+						),1,0)) = 1
+					and (if(
+						(SELECT SUM(`points`) FROM `notary` AS `n`
+							WHERE `n`.`to` = `u`.`id`
+							AND (`n`.`expire` > now()
+							OR `n`.`expire` IS NULL)
+							AND `n`.`deleted` = 0) is null,
+						0,
+						(SELECT SUM(`points`) FROM `notary` AS `n`
+							WHERE `n`.`to` = `u`.`id`
+							AND (`n`.`expire` > now()
+					 		OR `n`.`expire` IS NULL)
+							AND `n`.`deleted` = 0)
+						)) >= 100 and `u`.`assurer` = 0 )
+				or
+					((if(
+						(SELECT SUM(`points`) FROM `notary` AS `n`
+							WHERE `n`.`to` = `u`.`id`
+								AND (`n`.`expire` > now()
+								OR `n`.`expire` IS NULL)
+								AND `n`.`deleted` = 0)  is null,
+						0,
+						(SELECT SUM(`points`) FROM `notary` AS `n`
+							WHERE `n`.`to` = `u`.`id`
+								AND (`n`.`expire` > now()
+								OR `n`.`expire` IS NULL)
+								AND `n`.`deleted` = 0)
+						)) < 100 and `u`.`assurer` = 1))" . $where;
+	$res=mysql_query($query);
+	while($row = mysql_fetch_assoc($res)){
+		$assurer = 0;
+		if ($row['cats'] == 1 and $row['points'] >= 100) {
+			$assurer = 1;
+		}
+		if ($row['points'] < 100) {
+			$assurer = 0;
+		}
+		$query = "UPDATE `users` AS `u` SET `assurer` = $assurer where `u`.`id` = " . $row['id'];
+		$res1 = mysql_query($query);
+		if (!$res1) {
+			$fres = false;
+		}
 	}
 
-	return true;
+	return $fres;
+
 }
 
 /**
