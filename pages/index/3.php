@@ -31,7 +31,9 @@
 	<li><a href="certs/root.der"><?=_("Root Certificate (DER Format)")?></a></li>
 	<li><a href="certs/root.txt"><?=_("Root Certificate (Text Format)")?></a></li>
 	<li><a href="<?=$_SERVER['HTTPS']?"https":"http"?>://crl.cacert.org/revoke.crl">CRL</a></li>
-	<li><?=_("Fingerprints see below")?></li>
+	<li><?=_("SHA1 Fingerprint:")?> 13:5C:EC:36:F4:9C:B8:E9:3B:1A:B2:70:CD:80:88:46:76:CE:8F:33</li>
+	<li><?=_("MD5 Fingerprint:")?> A6:1B:37:5E:39:0D:9C:36:54:EE:BD:20:31:46:1F:6B</li>
+	<li><?=_("Additional fingerprints see below")?></li>
 </ul>
 
 <h3><?=_("Class 3 PKI Key")?></h3>
@@ -44,7 +46,9 @@
   class3 subroot fingerprint updated: 2011-05-23  class3 Re-sign project
   https://wiki.cacert.org/Roots/Class3ResignProcedure/Migration
 */ ?>
-	<li><?=_("Fingerprints see below")?></li>
+	<li><?=_("SHA1 Fingerprint:")?> AD:7C:3F:64:FC:44:39:FE:F4:E9:0B:E8:F4:7C:6C:FA:8A:AD:FD:CE</li>
+	<li><?=_("MD5 Fingerprint:")?> F7:25:12:82:4E:67:B5:D0:8D:92:B7:7C:0B:86:7A:42</li>
+	<li><?=_("Additional fingerprints see below")?></li>
 </ul>
 
 <h3><?=_("GPG Key")?></h3>
