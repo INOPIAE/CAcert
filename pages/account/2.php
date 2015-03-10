@@ -21,7 +21,7 @@
     <td colspan="4" class="title"><?=_("Email Accounts")?></td>
   </tr>
   <tr>
-    <td class="DataTD"><?=_("Default")?></td>
+    <td class="DataTD"><?=_("Primary email address")?></td>
     <td class="DataTD"><?=_("Status")?></td>
     <td class="DataTD"><?=_("Delete")?></td>
     <td class="DataTD"><?=_("Address")?></td>
@@ -49,7 +49,7 @@
   </tr>
 <? } ?>
   <tr>
-    <td class="DataTD" colspan="2"><input type="submit" name="makedefault" value="<?=_("Make Default")?>"></td>
+    <td class="DataTD" colspan="2"><input type="submit" name="makedefault" value="<?=_("Make primary email address")?>"></td>
     <td class="DataTD" colspan="2"><input type="submit" name="process" value="<?=_("Delete")?>"></td>
   </tr>
 </table>
@@ -57,5 +57,5 @@
 <input type="hidden" name="csrf" value="<?=make_csrf('chgdef')?>" />
 </form>
 <p>
-<?=_("Please Note: You can not set an unverified account as a default account, and you can not remove a default account. To remove the default account you must set another verified account as the default.")?>
+<?=_("Please Note: You can not set an unverified email address as a primary email address, and you can not remove a primary email address. To remove the primary email address you must set another verified email address as the primary.")?>
 </p>
