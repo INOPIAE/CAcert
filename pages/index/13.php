@@ -44,8 +44,8 @@ Account No.:  180264
 
 <p><?=_("Thank you very much for your support, your donations help CAcert to continue to operate.")?></p>
 
-<h3><?=_("Funding")?></h3>
-<p><?= printf(_("If you want to support some special funding projects please visit the %sfunding page%s."), '<a href="https://funding.cacert.org">','</a>')?></p>
+<h3>"Funding"</h3>
+<p><?=sprintf(_("If you want to support some special funding projects please visit the %sfunding page%s."), '<a href="https://funding.cacert.org">','</a>')?></p>
 
 <h3><?=_("Using Our Affiliate Partners")?></h3>
 
