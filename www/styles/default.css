@@ -727,3 +727,10 @@ div.footerbar {
 
 .accountdetail.suffix {
 }
+
+/**** index ****/
+.attention {
+	border: dotted 1px #900;
+	padding: 0.3em;
+	background-color: #ffe;"
+}
