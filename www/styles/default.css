@@ -737,30 +737,30 @@ div.footerbar {
 
 
 .box2 {
-    width:100%;
-    text-align:center;
+    width: 100%;
+    text-align: center;
 }
     
 .box {
-    background:#F5F7F7;
-    border:2px solid #cccccc;
-    margin:0px auto;
-    height:auto;
-    width:300px;
-    padding:1em;
+    background: #F5F7F7;
+    border: 2px solid #cccccc;
+    margin: 0px auto;
+    height: auto;
+    width: 300px;
+    padding: 1em;
 }
 .smalltext {
     font-size:10px;
 }
 .box2>.box label {
-    width:100px;
-    display:block;
-    float:left;
+    width: 100px;
+    display: block;
+    float: left;
 }
 .box2>.box text {
-    width:166px;
-    display:block;
-    float:left;
+    width: 166px;
+    display: block;
+    float: left;
 }
 .box2>.box br {
     clear:left;
@@ -779,4 +779,14 @@ div.footerbar {
 
 .ccabox {
     text-align: center;
+}
+
+/**** account ****/
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.displaynone {
+    display: none;
 }

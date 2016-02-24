@@ -18,5 +18,20 @@ function hideall() {
         }
 }
 
+function showExpert(a)
+{
+  b=document.getElementsByName("expert");
+  if (b) for(i=0;b.length>i;i++)
+  {
+    if(!a) {b[i].setAttribute("style","display:none"); }
+    else {b[i].removeAttribute("style");}
+  }
+  b=document.getElementsByName("expertoff");
+  if (b) for(i=0;b.length>i;i++)
+  {
+    b[i].removeAttribute("style");
+  }
 
+}
+showExpert(false);
 

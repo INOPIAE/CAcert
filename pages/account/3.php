@@ -93,7 +93,7 @@ if($_SESSION['profile']['points'] >= 50)
     </td>
   </tr>
 
-  <tr name="expertoff" style="display:none">
+  <tr name="expertoff" class="displaynone">
     <td class="DataTD">
       <input type="checkbox" id="expertbox" name="expertbox" onchange="showExpert(this.checked)" />
     </td>
@@ -176,21 +176,4 @@ if($_SESSION['profile']['points'] >= 50)
 <input type="hidden" name="oldid" value="<?=$id?>" />
 </form>
 
-<script language="javascript">
-function showExpert(a)
-{
-  b=document.getElementsByName("expert");
-  for(i=0;b.length>i;i++)
-  {
-    if(!a) {b[i].setAttribute("style","display:none"); }
-    else {b[i].removeAttribute("style");}
-  }
-  b=document.getElementsByName("expertoff");
-  for(i=0;b.length>i;i++)
-  {
-    b[i].removeAttribute("style");
-  }
 
-}
-showExpert(false);
-</script>
