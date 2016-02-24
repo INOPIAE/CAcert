@@ -790,3 +790,8 @@ div.footerbar {
 .displaynone {
     display: none;
 }
+
+.policybackground {
+    background-color: #FF8080; 
+    font-size: 150%;
+}
