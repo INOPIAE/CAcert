@@ -18,7 +18,7 @@
 
 ?>
 
-<div style="text-align: center;">
+<div class="ccabox">
 	<h1><?=_('CAcert Community Agreement Acceptance')?></h1>
 	<p><?=sprintf(_('To get access to your account your agreement to the %s CAcert Community Agreement %s (CCA) is required.'),'<a href="/policy/CAcertCommunityAgreement.php">', '</a>')?></p>
 	<p><?=_('Every member, who has agreed to the CCA, should be able to rely on the fact that every other user of CAcert has also agreed to the CCA and that the same rules apply to everybody. Moreover it is a basic requirement for the audit to be able to tell who has accepted our rules.')?></p>
