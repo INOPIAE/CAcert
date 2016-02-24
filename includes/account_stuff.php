@@ -143,26 +143,7 @@
 <? if(array_key_exists('header',$_SESSION) && $_SESSION['_config']['header'] != "") { ?><?=$_SESSION['_config']['header']?><? } ?>
 <link rel="stylesheet" href="/styles/default.css" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script language="JavaScript" type="text/javascript">
-function explode(e) {
-    if (document.getElementById(e).style.display == 'none') {
-        document.getElementById(e).style.display = 'block';
-    } else {
-        document.getElementById(e).style.display = 'none';
-    }
-}
-
-function hideall() {
-        var Nodes = document.getElementsByTagName('ul')
-        var max = Nodes.length
-        for(var i = 0;i < max;i++) {
-                var nodeObj = Nodes.item(i)
-		if (nodeObj.className == "menu") {
-	                nodeObj.style.display = 'none';
-		}
-        }
-}
-</script>
+<script type="text/javascript" src="/scripts/general.js" ></script>
 </head>
 <body onload="hideall(); explode('home');<?=$expand?>">
  <div id="pagecell1">
