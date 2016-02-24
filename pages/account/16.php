@@ -53,7 +53,7 @@ if (array_key_exists('emails',$_SESSION['_config']) && is_array($_SESSION['_conf
 
   <tr name="expertoff" style="display:none">
     <td class="DataTD">
-      <input type="checkbox" id="expertbox" name="expertbox" onchange="showExpert(this.checked)" />
+      <input type="checkbox" id="expertbox" name="expertbox" onchange="showExpertMulti(this.checked)" />
     </td>
     <td class="DataTD">
       <label for="expertbox"><?=_("Show advanced options")?></label>
@@ -106,21 +106,3 @@ if (array_key_exists('emails',$_SESSION['_config']) && is_array($_SESSION['_conf
 </form>
 <?=_("Please fill out the form, when all data is entered and you click \"Next\" you can add either a CSR (certificate signing request) or create a new key with your browser. Even in the case that a CSR is given the data from this form will be used for the certificate. Only the public key information of the CSR will be copied.")?>
 
-<script language="javascript">
-function showExpert(a)
-{
-  b=document.getElementsByName("expert");
-  for(i=0;b.length>i;i++)
-  {
-    if(!a) {b[i].setAttribute("style","display:none"); }
-    else {b[i].removeAttribute("style");}
-  }
-  b=document.getElementsByName("expertoff");
-  for(i=0;b.length>i;i++)
-  {
-    b[i].removeAttribute("style");
-  }
-
-}
-showExpert(false);
-</script>
