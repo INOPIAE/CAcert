@@ -19,7 +19,7 @@
 
 <p><?=_("Many people to thank, if you've had a large input with the CAcert project with code, documentation, translations, or assurances and would like recognition let me know.")?></p>
 <p><?=_("The list of names are in no sense of order")?></p>
-<ul style="padding-left: 0; margin-left: 10em; border-left: none; text-indent: -8em;">
+<ul class="listofpersons">
 <li>Christian Barmala - <?=_("Put a lot of effort convincing people in Germany to signup and be assured, he started work on a new RFC compliant CPS, spent countless hours helping with tech support, and so much more")?></li>
 <li>Guillaume Romagny - <?=_("He's constantly helping out on the support list, building up documentation and all round nice guy, he was even offered a free book and turned down the offer until there is a book on CAcert available!")?></li>
 <li>Adam Butler - <?=_("For much of the art work that exists on the website, t-shirt designs, much of the organisational work for Usenix '04, as well as a few published articles and written documents.")?></li>
