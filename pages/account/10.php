@@ -39,7 +39,7 @@
 
 <fieldset>
 <legend>
-	<input type="checkbox" id="expertbox" onchange="showExpert(this.checked)" style="display:none" />
+	<input type="checkbox" id="expertbox" onchange="showExpertSingle(this.checked)" style="display:none" />
 	<label for="expertbox"><?=_("Advanced Options")?></label>
 </legend>
 <div id="advanced_options">
@@ -80,16 +80,3 @@ foreach (HashAlgorithms::getInfo() as $algorithm => $display_info) {
 <input type="submit" name="process" value="<?=_("Submit")?>" />
 <input type="hidden" name="oldid" value="<?=$id?>" />
 </form>
-
-
-<script language="javascript">
-function showExpert(a)
-{
-	var options=document.getElementById("advanced_options");
-	options.style.display = (a) ? "" : "none";
-
-	var checkbox=document.getElementById("expertbox");
-	checkbox.style.display = "";
-}
-showExpert(false);
-</script>

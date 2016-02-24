@@ -18,7 +18,7 @@ function hideall() {
         }
 }
 
-function showExpert(a)
+function showExpertMulti(a)
 {
   b=document.getElementsByName("expert");
   if (b) for(i=0;b.length>i;i++)
@@ -33,5 +33,15 @@ function showExpert(a)
   }
 
 }
-showExpert(false);
+showExpertMulti(false);
 
+
+function showExpertSingle(a)
+{
+	var options=document.getElementById("advanced_options");
+	options.style.display = (a) ? "" : "none";
+
+	var checkbox=document.getElementById("expertbox");
+	checkbox.style.display = "";
+}
+showExpertSingle(false);
