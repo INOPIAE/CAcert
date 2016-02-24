@@ -27,15 +27,6 @@
 <? if($_SESSION['_config']['hostname'] == $_SESSION['_config']['securehostname']) { ?>
 <p><?=sprintf(_("Warning! You've attempted to log into the system with a client certificate, but the login failed due to the certificate being expired, revoked, disabled for certificate login, or simply not valid for this site. You can login using your email/pass phrase to get a new certificate, by clicking on %sPassword Login%s on the right side of this page."),"<a href='https://".$_SESSION['_config']['normalhostname']."/index.php?id=4'>", "</a>")?></p>
 <? } else { ?>
-<style>
-.box2 {width:100%;text-align:center;}
-.box {background:#F5F7F7;border:2px solid #cccccc;margin:0px auto;height:auto;width:300px;padding:1em;}
-.smalltext {font-size:10px;}
-label {width:100px;display:block;float:left;}
-text {width:166px;display:block;float:left;}
-br {clear:left;}
-h1 {font-size:1.9em;text-align:center;}
-</style>
 <div class='box2'>
 <div class='box'>
 <form action='index.php' method='post'<? if(array_key_exists("noauto",$_REQUEST) && $_REQUEST['noauto'] == 1) echo " autocomplete='off'"; ?>>

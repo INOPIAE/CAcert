@@ -734,3 +734,39 @@ div.footerbar {
 	padding: 0.3em;
 	background-color: #ffe;"
 }
+
+
+.box2 {
+    width:100%;
+    text-align:center;
+}
+    
+.box {
+    background:#F5F7F7;
+    border:2px solid #cccccc;
+    margin:0px auto;
+    height:auto;
+    width:300px;
+    padding:1em;
+}
+.smalltext {
+    font-size:10px;
+}
+.box2>.box label {
+    width:100px;
+    display:block;
+    float:left;
+}
+.box2>.box text {
+    width:166px;
+    display:block;
+    float:left;
+}
+.box2>.box br {
+    clear:left;
+}
+.box2>.box h1 {
+    font-size:1.9em;
+    text-align:center;
+}
+
