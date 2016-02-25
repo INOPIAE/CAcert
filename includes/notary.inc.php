@@ -481,7 +481,7 @@ define('THAWTE_REVOCATION_DATETIME', '2010-11-16 00:00:00');
 			{
 				if ($when < "2006-09-01")
 				{
-					$tdstyle="style='background-color: #ffff80'";
+					$tdstyle="class='cellbackground'";
 					$emopen="<em>";
 					$emclose="</em>";
 				}
@@ -501,7 +501,7 @@ define('THAWTE_REVOCATION_DATETIME', '2010-11-16 00:00:00');
 		}
 ?>
 		<td class="DataTD" <?=$tdstyle?>><?=$emopen?><?=$name?><?=$emclose?></td>
-		<td class="DataTD" <?=$tdstyle?>><?=$emopen?><?=$revoked ? sprintf("<strong style='color: red'>%s</strong>",_("Revoked")) : $awarded?><?=$emclose?></td>
+		<td class="DataTD" <?=$tdstyle?>><?=$emopen?><?=$revoked ? sprintf("<strong class='red'>%s</strong>",_("Revoked")) : $awarded?><?=$emclose?></td>
 		<td class="DataTD" <?=$tdstyle?>><?=$emopen?><?=sanitizeHTML($location)?><?=$emclose?></td>
 		<td class="DataTD" <?=$tdstyle?>><?=$emopen?><?=$method?><?=$emclose?></td>
 		<td class="DataTD" <?=$tdstyle?>><?=$emopen?><?=$experience?$experience:'&nbsp;'?><?=$emclose?></td>
@@ -731,10 +731,10 @@ define('THAWTE_REVOCATION_DATETIME', '2010-11-16 00:00:00');
 		$cats_test_passed = get_cats_state ($userid);
 		if ($cats_test_passed == 0)
 		{
-			$issue_points_txt = "<strong style='color: red'>"._("You have to pass the CAcert Assurer Challenge (CATS-Test) to be an Assurer")."</strong>";
+			$issue_points_txt = "<strong class='red'>"._("You have to pass the CAcert Assurer Challenge (CATS-Test) to be an Assurer")."</strong>";
 			if ($sum_points_countable < $max_points)
 			{
-				$issue_points_txt = "<strong style='color: red'>";
+				$issue_points_txt = "<strong class='red'>";
 				$issue_points_txt .= sprintf(_("You need %s assurance points and the passed CATS-Test to be an Assurer"), intval($max_points));
 				$issue_points_txt .= "</strong>";
 			}

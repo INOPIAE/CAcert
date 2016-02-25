@@ -800,3 +800,8 @@ div.footerbar {
 .red {
     color: red;
 }
+
+/**** notary_inc ****/
+.cellbackground {
+    background-color: #ffff80;
+}
