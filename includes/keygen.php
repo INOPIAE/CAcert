@@ -24,7 +24,7 @@ if (array_key_exists('HTTP_USER_AGENT',$_SERVER) && strstr($_SERVER['HTTP_USER_A
 			'manually created certificate requests instead.')?></p>
 	</noscript>
 
-	<div id="noActiveX" style="color:red">
+	<div id="noActiveX" class="red">
 		<p><?=_('Could not initialize ActiveX object required for certificate generation.')?></p>
 		<p><?=_('You have to enable ActiveX for this to work. On Windows Vista, Windows 7 and '.
 			'later versions you have to add this website to the list of trusted sites '.
@@ -41,7 +41,7 @@ if (array_key_exists('HTTP_USER_AGENT',$_SERVER) && strstr($_SERVER['HTTP_USER_A
 		</p>
 	</div>
 
-	<form method="post" style="display:none" action="account.php"
+	<form method="post" class="displaynone" action="account.php"
 			id="CertReqForm">
 		<input type="hidden" name="oldid" value="<?=intval($id)?>" />
 		<input type="hidden" id="CSR" name="CSR" />
@@ -55,7 +55,7 @@ if (array_key_exists('HTTP_USER_AGENT',$_SERVER) && strstr($_SERVER['HTTP_USER_A
 			</select>
 		</p>
 
-		<fieldset id="customSettings" style="display:none">
+		<fieldset id="customSettings" class="displaynone">
 			<legend><?=_('Custom Parameters')?></legend>
 
 			<p><?=_('Cryptography Provider')?>:
@@ -72,7 +72,7 @@ if (array_key_exists('HTTP_USER_AGENT',$_SERVER) && strstr($_SERVER['HTTP_USER_A
 				// the maximum is 2048, then only 1024, 1536 and 2048 bits may
 				// be specified as key size.
 				echo _('Step')?>: <span id="keySizeStep"></span></p>
-			<p style="color:red"><?php
+			<p class="red"><?php
 				printf(_('Please note that RSA key sizes smaller than %d bit '.
 					'will not be accepted by CAcert.'),
 					2048)?>
@@ -80,31 +80,31 @@ if (array_key_exists('HTTP_USER_AGENT',$_SERVER) && strstr($_SERVER['HTTP_USER_A
 		</fieldset>
 
 		<p><input type="submit" id="GenReq" name="GenReq" value="<?=_('Create Certificate')?>" /></p>
-		<p id="generatingKeyNotice" style="display:none">
+		<p id="generatingKeyNotice" class="displaynone">
 			<?=_('Generating your key. Please wait')?>&hellip;</p>
 	</form>
 
 	<!-- Error messages used in the JavaScript. Defined here so they can be
 	translated without passing the JavaScript code through PHP -->
-	<p id="createRequestErrorChooseAlgorithm" style="display:none">
+	<p id="createRequestErrorChooseAlgorithm" class="displaynone">
 		<?=_('Could not generate certificate request. Probably you need to '.
 			'choose a different algorithm.')?>
 	</p>
-	<p id="createRequestErrorConfirmDialogue" style="display:none">
+	<p id="createRequestErrorConfirmDialogue" class="displaynone">
 		<?=_('Could not generate certificate request. Please confirm the '.
 			'dialogue if you are asked if you want to generate the key.')?>
 	</p>
-	<p id="createRequestErrorConnectDevice" style="display:none">
+	<p id="createRequestErrorConnectDevice" class="displaynone">
 		<?=_('Could not generate certificate request. Please make sure the '.
 			'cryptography device (e.g. the smartcard) is connected.')?>
 	</p>
-	<p id="createRequestError" style="display:none">
+	<p id="createRequestError" class="displaynone">
 		<?=_('Could not generate certificate request.')?>
 	</p>
-	<p id="invalidKeySizeError" style="display:none">
+	<p id="invalidKeySizeError" class="displaynone">
 		<?=_('You have specified an invalid key size')?>
 	</p>
-	<p id="unsupportedPlatformError" style="display:none">
+	<p id="unsupportedPlatformError" class="displaynone">
 		<?=_('Could not initialize the cryptographic module for your '.
 			'platform. Currently we support Microsoft Windows XP, Vista '.
 			'and 7. If you\'re using one of these platforms and see this '.
