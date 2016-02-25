@@ -38,7 +38,7 @@
 
 <p><?=_("It is extremly easy! Just pick an image from the collections above and use it for example with the following html code fragment:")?>
 <br /><br />
-<pre>&lt;a href=&quot;http://www.cacert.org/&quot;&gt;&lt;img src=&quot;INSERT-FILENAME.PNG&quot; alt=&quot;www.cacert.org&quot; style=&quot;border-width: 0px;&quot; /&gt;&lt;/a&gt;</pre>
+<pre>&lt;a href=&quot;http://www.cacert.org/&quot;&gt;&lt;img src=&quot;INSERT-FILENAME.PNG&quot; alt=&quot;www.cacert.org&quot; class=&quot;logoborder&quot; /&gt;&lt;/a&gt;</pre>
 </p>
 
 <p><?=_("The result should get you something like:")?>

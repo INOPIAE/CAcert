@@ -811,3 +811,8 @@ div.footerbar {
     text-align: center;
     font-size: small;
 }
+
+/**** logos ****/
+.logoborder {
+    border-width: 0px;
+}
