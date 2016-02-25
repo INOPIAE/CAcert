@@ -46,3 +46,14 @@ function showExpertSingle(a)
 }
 showExpertSingle(false);
 
+function Show_Stuff()
+{
+	if (document.getElementById("display1").style.display == "none")
+	{
+		document.getElementById("display1").style.display = "";
+	} else {
+		document.getElementById("display1").style.display = "none";
+	}
+}
+
+document.getElementById("display1").style.display = "none";

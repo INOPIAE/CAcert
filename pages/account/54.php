@@ -152,21 +152,6 @@
   </tr>
 <? } ?>
 </table>
-<script language="JavaScript" type="text/javascript">
-<!--
-function Show_Stuff()
-{
-	if (document.getElementById("display1").style.display == "none")
-	{
-		document.getElementById("display1").style.display = "";
-	} else {
-		document.getElementById("display1").style.display = "none";
-	}
-}
-
-document.getElementById("display1").style.display = "none";
--->
-</script>
 <? } if($locid > 0 && $_REQUEST['action'] == "move") {
 	$query = "select * from `locations` where `id`='$locid'";
 	$row = mysql_fetch_assoc(mysql_query($query));
