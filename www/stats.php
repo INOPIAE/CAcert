@@ -152,7 +152,7 @@
 </table>
 <br>
 
-<div style="text-align: center;font-size: small;"><?
+<div class="statstextcenter"><?
 	printf(_("Last updated: %s"), date('Y-m-d H:i:s', $stats['timestamp']));?>
 </div>
 

@@ -805,3 +805,9 @@ div.footerbar {
 .cellbackground {
     background-color: #ffff80;
 }
+
+/**** stats ****/
+.statstextcenter {
+    text-align: center;
+    font-size: small;
+}
