@@ -28,19 +28,19 @@
 
 	echo '<body>', "\n";
 	echo '<p>', "\n";
-	echo '<div style="text-align: right;"><img style="width: 30%; float: none;" alt="CAcert logo" src="http://www.cacert.org/logos/CAcert-logo-colour-1000.png" vspace="3">';
+	echo '<div class="textalignright"><img class="imagestyle" alt="CAcert logo" src="http://www.cacert.org/logos/CAcert-logo-colour-1000.png" vspace="3">';
 	echo '</div>', "\n";
 	echo '</p>', "\n";
 	echo '<p>', "\n";
-	echo '<div style="text-align: right;">', "\n";
-	echo '<big><big><span style="font-weight: bold;">'._("CAcert Assurance Programme").'</span></big></big><br>', "\n";
+	echo '<div class="textalignright">', "\n";
+	echo '<big><big><span class="spanbold">'._("CAcert Assurance Programme").'</span></big></big><br>', "\n";
 	echo '</div>', "\n";
-	echo '<div style="text-align: right;">', "\n";
-	echo '<big><big><span style="font-weight: bold;">'._("Identity Verification Form (CAP) form").'</span></big></big><br>', "\n";
+	echo '<div class="textalignright">', "\n";
+	echo '<big><big><span class="spanbold">'._("Identity Verification Form (CAP) form").'</span></big></big><br>', "\n";
 	echo '</div>', "\n";
-	echo '<div style="text-align: right;">'.'CAcert Inc. - P.O. Box 4107 - Denistone East NSW 2112 - Australia - <a href="http://www.cacert.org/"> http://www.cacert.org/</a><br></div>', "\n";
+	echo '<div class="textalignright">'.'CAcert Inc. - P.O. Box 4107 - Denistone East NSW 2112 - Australia - <a href="http://www.cacert.org/"> http://www.cacert.org/</a><br></div>', "\n";
 
-	echo '<table border=1 cellspacing="0" cellpadding="0" bordercolor="lightblue" cellpadding="0" cellspacing="0" width="100%" style="color: white; background-color: rgb(112, 154, 186);" rules="groups">', "\n";
+	echo '<table border=1 cellspacing="0" cellpadding="0" bordercolor="lightblue" cellpadding="0" cellspacing="0" width="100%" class="captableheader rules="groups">', "\n";
 	echo '<tbody>', "\n";
 	echo '<tr><td>', "\n";
 	echo '<tr>', "\n";
@@ -75,16 +75,16 @@
 
 	echo '<table width=100% cellspacing="0" celpadding="0"><tr>', "\n";
 	echo '    <td>';
-	echo '<div style="text-align: left;"><span style="font-style: italic; text-align: right;">'._("Date and location of the face-to-face meeting").':</span>', "\n";
+	echo '<div class="textalignleft><span class="spanitalicright">'._("Date and location of the face-to-face meeting").':</span>', "\n";
 	echo '<input maxlength="80" size="30" name="location"></span>', "\n";
 	echo '</td>', "\n", '    <td>';
-	echo '<div style="text-align: right;"><span style="font-style: italic;"><small>('._("yyyy-dd-mm").')</small></span>';
+	echo '<div class="textalignright"><span class="spanitalic"><small>('._("yyyy-dd-mm").')</small></span>';
 	echo '<input size="12" name="date"></div>', "\n";
 	echo '</td>', "\n", '</tr>', "\n", '</tabe>', "\n";
 	echo '<br>', "\n";
 	echo '<table border="3" cellpadding="2" cellspacing="0" width="100%" bordercolor="lightblue" rules="groups">', "\n";
 	echo '<thead>', "\n";
-	echo '<tr style="background-color: rgb(17, 86, 140); color: white;">', "\n";
+	echo '<tr class="captablerow">', "\n";
 	echo '    <th colspan="2" align="left"><big><big>'._("Applicant's Identity Information").'</big></big></th>', "\n";
 	echo '    <th align=left>';
 	/* echo _("points").'<br>'._("allocated"); */
@@ -140,7 +140,7 @@
 	echo '<table border="3" cellpadding="2" cellspacing="0" width="100%" bordercolor="lightblue" rules="groups">', "\n";
 	echo '-->', "\n";
 	echo '<thead>', "\n";
-	echo '<tr style="background-color: rgb(17, 86, 140); color: white;">', "\n";
+	echo '<tr class="captablerow">', "\n";
 	echo '    <th colspan="3" align="left"><big><big>'._("Applicant's Statement").'</big></big></th>', "\n";
 	echo '</thead>', "\n";
 	echo '<tbody>', "\n";
@@ -173,7 +173,7 @@
 	echo '<br>', "\n";
 	echo '<table border="3" cellpadding="2" cellspacing="0" width="100%" bordercolor="lightblue" rules="groups">', "\n";
 	echo '<thead>', "\n";
-	echo '<tr style="background-color: rgb(17, 86, 140); color: white;">', "\n";
+	echo '<tr class="captablerow>', "\n";
 	echo '    <th colspan="2" align="left"><big><big>'._("Assurer's Statement").'</big></big></td>', "\n";
 	echo '</tr>', "\n";
 	echo '</thead>', "\n";
@@ -213,12 +213,12 @@
 	echo '</tr>', "\n";
 	echo '</tbody>', "\n";
 	echo '</table>', "\n";
-	echo '<div style="text-align: right;"><small><small><span>&copy; '.date('Y').' CAcert Inc., V5, '.date('Y-n-j').'</small></small></span></div>', "\n";
+	echo '<div class="textalignright"><small><small><span>&copy; '.date('Y').' CAcert Inc., V5, '.date('Y-n-j').'</small></small></span></div>', "\n";
 	echo '<br>', "\n";
 	echo '<p>', "\n";
 	echo '<table border="3" cellpadding="2" cellspacing="0" width="100%" bordercolor="lightblue" rules="groups">', "\n";
 	echo '<thead>', "\n";
-	echo '<tr style="background-color: rgb(112, 154, 186); color: white;">', "\n";
+	echo '<tr class="captablerow">', "\n";
 	echo '    <th colspan="2" align="left"><big><big>'._("How To Print this CAP form").'</big></big></td>', "\n";
 	echo '</tr>', "\n";
 	echo '</thead>', "\n";
@@ -237,7 +237,7 @@
 	echo '        <input type="radio" checked="checked" name="nocca" value="true"> '._("yes, the CCA is attached to the form.");
 	echo '</dd>', "\n";
 	echo '</dl>', "\n";
-	echo _("Submit the form").': <button type="submit" style="background-color: rgb(112, 154, 186); color: white;"> '._("generate PDF file");
+	echo _("Submit the form").': <button type="submit" class="captablerow"> '._("generate PDF file");
 	echo '</button>', "\n";
 	echo '</p>', "\n";
 	echo '</form>', "\n";

@@ -816,3 +816,40 @@ div.footerbar {
 .logoborder {
     border-width: 0px;
 }
+
+/**** cap/coap ****/
+.textalignright {
+    text-align: right;
+}
+
+.textalignleft {
+    text-align: left;
+}
+
+.imagestyle {
+    width: 30%;
+    float: none;
+}
+
+.spanbold {
+    font-weight: bold;
+}
+
+.spanitalic {
+    font-weight: italic;
+}
+
+.spanitalicright {
+    font-style: italic; 
+    text-align: right
+}
+
+.captablerow {
+    background-color: rgb(17, 86, 140);
+    color: white;
+}
+
+.captableheader {
+    background-color: rgb(112, 154, 186);
+    color: white;
+}
