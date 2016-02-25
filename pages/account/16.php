@@ -51,7 +51,7 @@ if (array_key_exists('emails',$_SESSION['_config']) && is_array($_SESSION['_conf
     <td class="DataTD"><input type="text" id="OU" name="OU" value="<?=array_key_exists('OU',$_SESSION['_config'])?(sanitizeHTML($_SESSION['_config']['OU'])):''?>"/></td>
   </tr>
 
-  <tr name="expertoff" style="display:none">
+  <tr name="expertoff" class="displaynone">
     <td class="DataTD">
       <input type="checkbox" id="expertbox" name="expertbox" onchange="showExpertMulti(this.checked)" />
     </td>

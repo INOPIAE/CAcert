@@ -39,7 +39,7 @@
 
 <fieldset>
 <legend>
-	<input type="checkbox" id="expertbox" onchange="showExpertSingle(this.checked)" style="display:none" />
+	<input type="checkbox" id="expertbox" onchange="showExpertSingle(this.checked)" class="displaynone" />
 	<label for="expertbox"><?=_("Advanced Options")?></label>
 </legend>
 <div id="advanced_options">

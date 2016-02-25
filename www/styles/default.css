@@ -796,6 +796,19 @@ div.footerbar {
     font-size: 150%;
 }
 
+.errororgane {
+    color: orange;
+}
+
+.attetionbold {
+    border: dotted 1px #900;
+    padding: 0.3em;
+    bold;
+    color: #ffffff;
+    background-color: #ff0000;
+}
+
+
 /****  advertising ****/
 .red {
     color: red;

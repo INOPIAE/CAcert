@@ -20,7 +20,7 @@
 {
 ?>
 
-<p style="border:dotted 1px #900;padding:0.3em;bold;color:#ffffff;background-color:#ff0000;"><strong><center>
+<p class="attetionbold"><strong><center>
 <?=_("For your own security you should change your pass phrase immediately!"); ?></center></strong>
 </p>
 <?}?>
