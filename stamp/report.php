@@ -97,7 +97,7 @@ google_ad_channel = "";
     <div class="story">
       <h3>Report abuse for <?=$ref?></h3>
 <? if($process == "") { ?>
-<? if($errmsg != "") { ?><p style="color:red"><?=$errmsg?></p><? } else { ?><br /><? } ?>
+<? if($errmsg != "") { ?><p class="red"><?=$errmsg?></p><? } else { ?><br /><? } ?>
       <form method="post" action="report.php">
 	<label for="refer">URL: </label><input type="text" name="refer" value="<?=$refer?>" readonly="1" /><br />
 	<label for="name">Name: </label><input type="text" name="name" value="<?=$name?>" /><br />

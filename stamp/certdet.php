@@ -77,7 +77,7 @@ google_ad_channel = "";
 	Verification: <? if($info['points'] >= 50) { echo "Person had been assured at time of issue with at least 50 points."; } 
 		else if($info['org'] == 1) { ?>This organisation was assured at the time the certificate was issued.<? } ?></p>
 <? } else { ?>
-	<p style="color:red">This site has potentially abused CAcert logos and Copyrights, please report it so we may further investigate.</p>
+	<p class="red">This site has potentially abused CAcert logos and Copyrights, please report it so we may further investigate.</p>
 <? } ?>
 	<p><a href="report.php">Problem with this site? Please report it</a></p>
     </div>
