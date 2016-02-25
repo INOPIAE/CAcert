@@ -795,3 +795,8 @@ div.footerbar {
     background-color: #FF8080; 
     font-size: 150%;
 }
+
+/****  advertising ****/
+.red {
+    color: red;
+}
