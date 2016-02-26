@@ -586,7 +586,7 @@ if(intval($_REQUEST['userid']) > 0) {
             <td class="DataTD"><?=$inccause?><br>code: <?=intval($inconsistency)?></td>
         </tr>
         <tr>
-            <td colspan="2" class="DataTD" style="max-width: 75ex;">
+            <td colspan="2" class="DataTD TDwidth75">
                 <?=_("Account inconsistency can cause problems in daily account operations and needs to be fixed manually through arbitration/critical team.")?>
             </td>
         </tr>
