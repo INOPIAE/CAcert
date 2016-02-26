@@ -545,3 +545,13 @@ function escapeURI(La){
     return escape(La)
   }
 }
+
+
+function oncomplete() {
+	document.f.submit();
+}
+
+/* to be hanlded in on laod in wot/12 and wot/13  */
+var ac1 = new AC('location', 'location', oncomplete);
+ac1.enable_unicode();
+document.f.location.focus();

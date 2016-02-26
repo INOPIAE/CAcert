@@ -18,13 +18,7 @@
 
 <? if(!array_key_exists('location',$_REQUEST) || $_REQUEST['location'] == "") { ?>
 <script language="javascript" src="/scripts/ac.js"></script>
-<script language="javascript">
-<!--
-function oncomplete() {
-	document.f.submit();
-}
-// -->
-</script>
+
 <p><?=_("Please enter your town or suburb name, followed by region or state or province and then the country (please separate by commas)")?><br />
 <?=_("eg Sydney, New South Wales, Australia")?></p>
 <p><?=_("This is an AJAX form which depends heavily on javascript for auto-complete functionality and while it will work without javascript the usability will be heavily degraded.")?></p>
@@ -53,13 +47,7 @@ function oncomplete() {
 </table>
 
 </form>
-<script language="javascript">
-<!--
-var ac1 = new AC('location', 'location', oncomplete);
-ac1.enable_unicode();
-document.f.location.focus();
-// -->
-</script>
+
 <? } else {
 	if(intval($_REQUEST['location']) == 0)
 	{
