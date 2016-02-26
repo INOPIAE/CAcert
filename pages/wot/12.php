@@ -17,7 +17,7 @@
 */ ?>
 
 <? if(!array_key_exists('location',$_REQUEST) || $_REQUEST['location'] == "") { ?>
-<script language="javascript" src="/ac.js"></script>
+<script language="javascript" src="/scripts/ac.js"></script>
 <script language="javascript">
 <!--
 function oncomplete() {
