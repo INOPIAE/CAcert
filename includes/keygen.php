@@ -113,7 +113,7 @@ if (array_key_exists('HTTP_USER_AGENT',$_SERVER) && strstr($_SERVER['HTTP_USER_A
 			'the module.')?>
 	</p>
 
-	<script type="text/javascript" src="keygenIE.js"></script>
+	<script type="text/javascript" src="/scripts/keygenIE.js"></script>
 
 <? } else { ?>
 	<p>
