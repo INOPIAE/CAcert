@@ -59,22 +59,24 @@ window.onload = function() {
         d1.style.display = "none";
     }
 
-    showExpertMulti(false);
-    showExpertSingle(false);
     var tagShowAdvanced = document.getElementById("showAdvanced");
     if (tagShowAdvanced) {
         if (tagShowAdvanced.dataset.expert == "single") {
             showExpertSingle(false);
+        } else if (tagShowAdvanced.dataset.expert == "single") {
+            showExpertMulti(false);
         }
     }
     
     var eb = document.getElementById("expertbox");
     if(eb) {
         if(eb.dataset) {
-            if(eb.dataset.expert == "single") { 
-                eb.onchange=showExpertSingle; 
-            } else if (eb.dataset.expert == "multi"){
-            	eb.onchange=showExpertMulti;
+            if(eb.dataset.expert == "single") {
+                eb.onchange=showExpertSingle;
+                showExpertSingle(false);
+            } else if (eb.dataset.expert == "multi") {
+                eb.onchange=showExpertMulti;
+                showExpertMulti(false);
             }
         }
     }
