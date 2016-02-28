@@ -737,7 +737,7 @@ div.footerbar {
 .attention {
 	border: dotted 1px #900;
 	padding: 0.3em;
-	background-color: #ffe;"
+	background-color: #ffe;
 }
 
 
@@ -801,16 +801,8 @@ div.footerbar {
     font-size: 150%;
 }
 
-.errororgane {
+.errororange {
     color: orange;
-}
-
-.attetionbold {
-    border: dotted 1px #900;
-    padding: 0.3em;
-    bold;
-    color: #ffffff;
-    background-color: #ff0000;
 }
 
 

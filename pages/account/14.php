@@ -20,7 +20,7 @@
 {
 ?>
 
-<p class="attetionbold"><strong><center>
+<p class="attention"><strong><center>
 <?=_("For your own security you should change your pass phrase immediately!"); ?></center></strong>
 </p>
 <?}?>

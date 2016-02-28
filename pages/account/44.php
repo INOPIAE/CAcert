@@ -18,7 +18,7 @@
 
 if(array_key_exists('error',$_SESSION['_config']) && $_SESSION['_config']['error'] != "") {
     ?>
-    <div class="errororgane">ERROR: <?=$_SESSION['_config']['error']?></div>
+    <div class="errororange">ERROR: <?=$_SESSION['_config']['error']?></div>
     <?
     unset($_SESSION['_config']['error']);
 }
