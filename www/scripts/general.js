@@ -63,7 +63,7 @@ window.onload = function() {
     if (tagShowAdvanced) {
         if (tagShowAdvanced.dataset.expert == "single") {
             showExpertSingle(false);
-        } else if (tagShowAdvanced.dataset.expert == "single") {
+        } else if (tagShowAdvanced.dataset.expert == "multi") {
             showExpertMulti(false);
         }
     }
