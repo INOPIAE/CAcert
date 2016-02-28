@@ -33,10 +33,10 @@
 	echo '</p>', "\n";
 	echo '<p>', "\n";
 	echo '<div class="textalignright">', "\n";
-	echo '<big><big><span class="spanbold">'._("CAcert Assurance Programme").'</span></big></big><br>', "\n";
+	echo '<big><big><strong>'._("CAcert Assurance Programme").'</strong></big></big><br>', "\n";
 	echo '</div>', "\n";
 	echo '<div class="textalignright">', "\n";
-	echo '<big><big><span class="spanbold">'._("Identity Verification Form (CAP) form").'</span></big></big><br>', "\n";
+	echo '<big><big><strong>'._("Identity Verification Form (CAP) form").'</strong></big></big><br>', "\n";
 	echo '</div>', "\n";
 	echo '<div class="textalignright">'.'CAcert Inc. - P.O. Box 4107 - Denistone East NSW 2112 - Australia - <a href="http://www.cacert.org/"> http://www.cacert.org/</a><br></div>', "\n";
 
