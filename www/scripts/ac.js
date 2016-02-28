@@ -547,11 +547,13 @@ function escapeURI(La){
 }
 
 
-function oncomplete() {
+function location_ac_oncomplete() {
 	document.f.submit();
 }
 
-/* to be hanlded in on laod in wot/12 and wot/13  */
-var ac1 = new AC('location', 'location', oncomplete);
-ac1.enable_unicode();
-document.f.location.focus();
+/* handles the load event in wot/12 and wot/13  */
+window.onload = function() {
+	var ac1 = new AC('location', 'location', location_ac_oncomplete);
+	ac1.enable_unicode();
+	document.f.location.focus();
+}
