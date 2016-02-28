@@ -134,7 +134,7 @@
   </tr>
   <tr ID="display1">
     <td colspan="2" class="DataTD">
-	<form method="post" action="account.php" ACCEPTCHARSET="utf-8">
+	<form method="post" action="account.php" ACCEPTCHARSET="utf-8" data-expert="single" id="showAdvanced">
 	<?=_("Location Alias")?>: <input type="text" name="name"> <input type="submit" value="Add">
 	<input type="hidden" name="action" value="alias">
 	<input type="hidden" name="locid" value="<?=intval($locid)?>">

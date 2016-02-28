@@ -53,7 +53,7 @@ if (array_key_exists('emails',$_SESSION['_config']) && is_array($_SESSION['_conf
 
   <tr name="expertoff" class="displaynone">
     <td class="DataTD">
-      <input type="checkbox" id="expertbox" name="expertbox" onchange="showExpertMulti(this.checked)" />
+      <input type="checkbox" id="expertbox" name="expertbox" data-expert="multi" />
     </td>
     <td class="DataTD">
       <label for="expertbox"><?=_("Show advanced options")?></label>

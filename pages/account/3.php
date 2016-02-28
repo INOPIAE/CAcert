@@ -95,7 +95,7 @@ if($_SESSION['profile']['points'] >= 50)
 
   <tr name="expertoff" class="displaynone">
     <td class="DataTD">
-      <input type="checkbox" id="expertbox" name="expertbox" onchange="showExpertMulti(this.checked)" />
+      <input type="checkbox" id="expertbox" name="expertbox" data-expert="multi" />
     </td>
     <td class="DataTD" align="left">
       <label for="expertbox"><?=_("Show advanced options")?></label>
