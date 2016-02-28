@@ -46,6 +46,7 @@ function showExpertSingle(a)
 }
 showExpertSingle(false);
 
+
 function Show_Stuff()
 {
 	if (document.getElementById("display1").style.display == "none")
@@ -56,4 +57,6 @@ function Show_Stuff()
 	}
 }
 
-document.getElementById("display1").style.display = "none";
+window.onload = function() {
+	document.getElementById("display1").style.display = "none";
+}
