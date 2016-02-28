@@ -762,7 +762,7 @@ div.footerbar {
     display: block;
     float: left;
 }
-.box2>.box text {
+.box2>.box input[type="text"] {
     width: 166px;
     display: block;
     float: left;
