@@ -72,10 +72,14 @@ window.onload = function() {
     if(eb) {
         if(eb.dataset) {
             if(eb.dataset.expert == "single") {
-                eb.onchange=showExpertSingle;
+                eb.onchange==function() {
+                    showExpertSingle(eb.checked);
+                };
                 showExpertSingle(false);
             } else if (eb.dataset.expert == "multi") {
-                eb.onchange=showExpertMulti;
+                eb.onchange=function() {
+                    showExpertMulti(eb.checked);
+                };
                 showExpertMulti(false);
             }
         }
