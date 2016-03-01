@@ -27,7 +27,7 @@ printf(_("CAcert Inc. is a non-profit association which is legally able to accep
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
-<input type="image" src="/images/payment2.png" border="0" name="submit" alt="<?=_("CAcert Donation through PayPal")?>">
+<input type="image" src="/images/payment2a.png" border="0" name="submit" alt="<?=_("CAcert Donation through PayPal")?>">
 <input type="hidden" name="hosted_button_id" value="EZK8Y6X9YTHXU">
 </form>
 
