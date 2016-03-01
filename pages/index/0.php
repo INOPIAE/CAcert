@@ -96,7 +96,7 @@
 <b><?=_("We are facing an uphill battle to fund this service and could do with your help?")?></b><br/>
 
 <?=_("If you can, please donate.")?><br />
-<?=_("AU$50 per year for this button")?><br />
+<?=_("EUR 50 per year for this button")?><br />
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="image" src="/images/payment2a.png" border="0" name="submit" alt="PayPal">
@@ -108,7 +108,7 @@
 <input type="image" src="/images/payment2a.png" border="0" name="submit" alt="Make payments with PayPal">
 <input type="hidden" name="hosted_button_id" value="UE5AAKFUSPVGJ">
 </form>
-<p><?=_("If you are located in Australia, use bank transfer instead.")?></p>
+<p><?=_("If you are located in Australia, use bank transfer instead and pay the equivalent of the amount in AUD.")?></p>
 
 <p><?=_("CAcert bank account details:")?></p>
 <ul class="no_indent">
